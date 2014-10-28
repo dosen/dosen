@@ -25,5 +25,8 @@
   },
   "devDependencies": {
     "open": "0.0.5"
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }
