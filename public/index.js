@@ -1,5 +1,2 @@
-var Index = (function () {
-    function Index() {
-    }
-    return Index;
-})();
+/// <reference path="typings/jquery/jquery.d.ts" />
+console.log(jQuery("h1").text());

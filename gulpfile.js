@@ -19,7 +19,7 @@ gulp.task('tsd', function() {
 
 gulp.task('typescript', function() {
   return gulp.src(['public/*.ts'])
-    .pipe(typescript())
+    .pipe(typescript({safe: true}))
     .pipe(gulp.dest('public/'));
 });
 
