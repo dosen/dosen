@@ -6,7 +6,8 @@
   "scripts": {
     "compile": "gulp compile",
     "start": "node index.js",
-    "test": "gulp test"
+    "test": "gulp test",
+    "tsd": "tsd reinstall"
   },
   "repository": {
     "type": "git",
