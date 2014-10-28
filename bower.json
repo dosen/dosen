@@ -1,0 +1,14 @@
+{
+  "name": "dosen",
+  "main": "index.js",
+  "version": "0.0.0",
+  "homepage": "https://github.com/dosen/dosen",
+  "authors": [
+    "Kaito Udagawa <umireon@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "jquery": "~2.1.1"
+  }
+}
