@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/dosen/dosen/issues"
   },
-  "homepage": "https://github.com/dosen/dosen",
+  "homepage": "https://dosen.herokuapp.com",
   "dependencies": {
     "express": "^4.10.0",
     "harp": "^0.14.0"
