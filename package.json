@@ -21,6 +21,7 @@
   },
   "homepage": "https://dosen.herokuapp.com",
   "dependencies": {
+    "bower": "^1.3.12",
     "express": "^4.10.0",
     "harp": "^0.14.0"
   },
