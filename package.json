@@ -1,0 +1,29 @@
+{
+  "name": "dosen",
+  "version": "0.0.0",
+  "description": "dosen =====",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dosen/dosen.git"
+  },
+  "author": "Kaito Udagawa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dosen/dosen/issues"
+  },
+  "homepage": "https://github.com/dosen/dosen",
+  "dependencies": {
+    "cors": "^2.5.0",
+    "debug": "^2.1.0",
+    "express": "^4.10.0",
+    "harp": "^0.14.0"
+  },
+  "devDependencies": {
+    "open": "0.0.5"
+  }
+}
