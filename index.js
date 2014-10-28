@@ -1,12 +1,9 @@
 #!/usr/bin/env node
-var cors = require('cors')
 var express = require('express');
 var harp = require('harp');
-var http = require('http');
 
 var app = express();
 
-app.use(cors());
 app.use(express.static(__dirname + '/public'));
 app.use(harp.mount(__dirname + '/public'));
 
