@@ -4,8 +4,9 @@
   "description": "dosen =====",
   "main": "index.js",
   "scripts": {
+    "compile": "gulp compile",
     "start": "node index.js",
-    "test": "true"
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",
