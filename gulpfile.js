@@ -5,7 +5,7 @@ var typescript = require('gulp-tsc');
 
 gulp.task('default', ['compile']);
 
-gulp.task('compile', ['bower', 'tsd', 'typescript']);
+gulp.task('compile', ['bower', 'typescript']);
 gulp.task('test', ['compile']);
 
 gulp.task('bower', function() {
@@ -17,7 +17,7 @@ gulp.task('tsd', function() {
     .pipe(tsd());
 });
 
-gulp.task('typescript', function() {
+gulp.task('typescript', ['tsd'], function() {
   return gulp.src(['public/*.ts'])
     .pipe(typescript({safe: true}))
     .pipe(gulp.dest('public/'));
