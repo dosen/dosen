@@ -1,12 +1,25 @@
+var bower = require('gulp-bower');
 var gulp = require('gulp');
+var tsd = require('gulp-tsd');
 var typescript = require('gulp-tsc');
 
-gulp.task('compile', function() {
-  gulp.src(['public/*.ts'])
-    .pipe(typescript())
-    .pipe(gulp.dest('public/'));
+gulp.task('default', ['compile']);
+
+gulp.task('compile', ['bower', 'typescript']);
+gulp.task('test', ['compile']);
+
+gulp.task('bower', function() {
+  return bower();
 });
 
-gulp.task('default', ['compile']);
-gulp.task('test', ['compile']);
+gulp.task('tsd', function() {
+  return gulp.src('./gulp_tsd.json')
+    .pipe(tsd());
+});
+
+gulp.task('typescript', ['tsd'], function() {
+  return gulp.src(['public/*.ts'])
+    .pipe(typescript({safe: true}))
+    .pipe(gulp.dest('public/'));
+});
 
