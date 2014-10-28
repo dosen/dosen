@@ -21,8 +21,8 @@ build:
 deploy:
   steps:
     - script:
-        name: include whole product
-        code: rm -f .gitignore
+        name: production gitignore
+        code: cp .gitignore.production .gitignore
     - heroku-deploy:
        key-name: DEPLOY
   after-steps:

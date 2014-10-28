@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "compile": "gulp compile",
+    "postinstall": "bower install",
     "start": "node index.js",
     "test": "gulp test",
     "tsd": "tsd reinstall"
