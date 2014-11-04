@@ -2,6 +2,9 @@ box: wercker/nodejs
 build:
   steps:
     - npm-install
+    - script:
+        name: compile assets
+        code: npm run compile
     - npm-test
     - script:
         name: echo nodejs information
@@ -17,6 +20,9 @@ build:
         icon_url: https://avatars3.githubusercontent.com/u/1695193?s=14
 deploy:
   steps:
+    - script:
+        name: production gitignore
+        code: cp .gitignore.production .gitignore
     - heroku-deploy:
        key-name: DEPLOY
   after-steps:
