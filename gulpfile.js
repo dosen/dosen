@@ -35,5 +35,6 @@ gulp.task('css', function() {
 gulp.task('typescript', function() {
   return gulp.src(paths.ts)
     .pipe(typescript({safe: true}))
+      .on('error', function() {})
     .pipe(gulp.dest('public/'));
 });

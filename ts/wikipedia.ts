@@ -1,15 +1,39 @@
-var submit = <HTMLInputElement>document.querySelector('input[type=submit]');
-var search = <HTMLInputElement>document.querySelector('input[type=text]');
-var desc = <HTMLTextAreaElement>document.querySelector('textarea');
-var metric1_icon = <HTMLElement>document.querySelector('.metric__icon');
-submit.addEventListener('click', function() {
-  var url = 'http://ja.wikipedia.org/w/api.php?callback=?';
-  var wp = new Wikipedia();
-  wp.getText(search.value).done(function(text) {
-    var mya = Extractor.extract(text);
-    showMyAnimal(mya);
-  });
-  /*jQuery.getJSON(url, {
+/// <reference path="typings/jquery/jquery.d.ts" />
+class Wikipedia {
+  public endpoint = 'http://ja.wikipedia.org/w/api.php?callback=?';
+
+  public getText(title: string): JQueryPromise<(string)=>void> {
+    console.debug('getting from Wikipadia the text of ' + title);
+    return jQuery.getJSON(this.endpoint, {
+        action: 'query',
+        format: 'json',
+        prop: 'revisions',
+        rvprop: 'content',
+        titles: title,
+        redirects: true
+    }).then(function(data) {
+      var pages = data['query']['pages'];
+      for (var k in pages) {
+        console.assert(k in pages);
+        var page = pages[k];
+
+        console.assert('revisions' in page);
+        var revs = page['revisions'];
+
+        console.assert(0 in revs);
+        var rev = revs[0];
+
+        console.assert('*' in rev);
+        var text = rev['*'];
+
+        console.debug('retrieved the text of ' + title);
+        return text;
+      }
+    });
+  }
+}
+/*
+  jQuery.getJSON(url, {
     action: 'query',
     format: 'json',
     list: 'backlinks',
@@ -19,7 +43,7 @@ submit.addEventListener('click', function() {
     var backlinks = data['query']['backlinks'];
     var bl = document.getElementById('my-backlinks');
     bl.innerText = backlinks.length;
-  });*/
+  });
 });
 
 function showMyAnimal(animal: Animal) {
@@ -37,3 +61,4 @@ function showMyAnimal(animal: Animal) {
   var m2i = <HTMLElement>document.querySelector('#metric-2 .metric__icon');
   m2i.classList.add('metric__icon--up');
 }
+*/
