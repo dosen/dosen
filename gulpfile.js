@@ -6,7 +6,7 @@ var spawn = require('child_process').spawn;
 var typescript = require('gulp-tsc');
 
 var paths = {
-  ts: 'public/*.ts'
+  ts: '*.ts'
 }
 
 gulp.task('default', ['compile']);
