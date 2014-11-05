@@ -6,7 +6,8 @@ var spawn = require('child_process').spawn;
 var typescript = require('gulp-tsc');
 
 var paths = {
-  ts: '*.ts'
+  css: 'css/*.css',
+  ts: 'ts/*.ts'
 }
 
 gulp.task('default', ['compile']);
@@ -15,6 +16,7 @@ gulp.task('compile', ['bower', 'css', 'typescript']);
 gulp.task('test', ['compile']);
 gulp.task('watch', function() {
   gulp.watch(paths.ts, ['typescript']);
+  gulp.watch(paths.css, ['css']);
   livereload.listen();
   gulp.watch('public/*').on('change', livereload.changed);
   spawn('npm', ['start']);
@@ -25,9 +27,9 @@ gulp.task('bower', function() {
 });
 
 gulp.task('css', function() {
-  return gulp.src('css/*.css')
+  return gulp.src(paths.css)
     .pipe(autoprefixer())
-    .pipe(gulp.dest('public/css'));
+    .pipe(gulp.dest('public/'));
 });
 
 gulp.task('typescript', function() {
