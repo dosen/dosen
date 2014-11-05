@@ -1,5 +1,7 @@
 dosen
 =====
+[![wercker status](https://app.wercker.com/status/21f29906f512f3d2f4e2feb3d39491fd/m "wercker status")](https://app.wercker.com/project/bykey/21f29906f512f3d2f4e2feb3d39491fd)
+
 The game comparing metrics of a Wikipedia page, largely depending on the client
 side programing.
 
