@@ -26,8 +26,10 @@ for (var i = 0; i < panes.length; i++) {
 
         var icon = <HTMLElement>metric_1.querySelector('.metric__icon');
         if (Math.random() > 0.5) {
+          icon.classList.remove('metric__icon--down');
           icon.classList.add('metric__icon--up');
         } else {
+          icon.classList.remove('metric__icon--up');
           icon.classList.add('metric__icon--down');
         }
 
@@ -42,8 +44,10 @@ for (var i = 0; i < panes.length; i++) {
 
         var icon = <HTMLElement>metric_2.querySelector('.metric__icon');
         if (Math.random() > 0.5) {
+          icon.classList.remove('metric__icon--down');
           icon.classList.add('metric__icon--up');
         } else {
+          icon.classList.remove('metric__icon--up');
           icon.classList.add('metric__icon--down');
         }
       });
@@ -59,8 +63,10 @@ for (var i = 0; i < panes.length; i++) {
 
         var icon = <HTMLElement>metric_3.querySelector('.metric__icon');
         if (Math.random() > 0.5) {
+          icon.classList.remove('metric__icon--down');
           icon.classList.add('metric__icon--up');
         } else {
+          icon.classList.remove('metric__icon--up');
           icon.classList.add('metric__icon--down');
         }
       });
