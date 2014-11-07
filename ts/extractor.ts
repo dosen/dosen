@@ -1,4 +1,3 @@
-/// <reference path="animal.ts" />
 class Extractor {
   static extract(text) {
     var animal = new Animal();
