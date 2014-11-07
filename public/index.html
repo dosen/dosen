@@ -6,29 +6,53 @@
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="animal.js"></script>
   <script src="extractor.js"></script>
-  <link rel="stylesheet" href="css/index.css">
+  <script src="wikipedia.js"></script>
+  <link rel="stylesheet" href="index.css">
  </head>
  <body>
   <h1>dosen</h1>
-  <p>
-   <input type="text" value="ペリカン">
-   <input type="submit">
-  </p>
-  <div class="metric" id="metric-1">
-   <p class="metric__icon">➡</p>
-   <p class="metric__title">metric1</p>
-   <p class="metric__value">0</p>
+  <div class="pane" id="pane_1">
+   <p>
+    <input type="text" value="ペリカン">
+    <input type="submit">
+   </p>
+   <div class="metric" id="pane_1__metric_1">
+    <p class="metric__icon">➡</p>
+    <p class="metric__title">metric1</p>
+    <p class="metric__value">0</p>
+   </div>
+   <div class="metric" id="pane_1__metric_2">
+    <p class="metric__icon">➡</p>
+    <p class="metric__title">metric2</p>
+    <p class="metric__value">0</p>
+   </div>
+   <div class="metric" id="pane_1__metric_3">
+    <p class="metric__icon">➡</p>
+    <p class="metric__title">metric3</p>
+    <p class="metric__value">0</p>
+   </div>
   </div>
-  <div class="metric" id="metric-2">
-   <p class="metric__icon">➡</p>
-   <p class="metric__title">metric2</p>
-   <p class="metric__value">0</p>
-  </div>
-  <div class="metric" id="metric-3">
-   <p class="metric__icon">➡</p>
-   <p class="metric__title">metric3</p>
-   <p class="metric__value">0</p>
-  </div>
-  <script src="index.js"></script>
+  <div class="pane" id="pane_2">
+   <p>
+    <input type="text" value="サイ">
+    <input type="submit">
+   </p>
+    <div class="metric" id="pane_2__metric_1">
+     <p class="metric__icon">➡</p>
+     <p class="metric__title">metric1</p>
+     <p class="metric__value">0</p>
+    </div>
+    <div class="metric" id="pane_2__metric_2">
+     <p class="metric__icon">➡</p>
+     <p class="metric__title">metric2</p>
+     <p class="metric__value">0</p>
+    </div>
+    <div class="metric" id="pane_2__metric_3">
+     <p class="metric__icon">➡</p>
+     <p class="metric__title">metric3</p>
+     <p class="metric__value">0</p>
+    </div>
+ </div>
+ <script src="index.js"></script>
  </body>
 </html>

@@ -7,10 +7,14 @@ h1 {
   filter: blur(10px);
 }
 
+.pane {
+  display: inline-block;
+  width: 30%;
+}
+
 .metric {
   background: white;
   border-radius: 20px;
-  width: 35%;
 }
 
 .metric__icon {
