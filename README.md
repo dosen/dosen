@@ -12,7 +12,7 @@ Prerequisites
 Download
 --------
 ```
-git clone https://github.com/umireon/client-collab.git
+git clone https://github.com/dosen/dosen.git
 ```
 
 Build
