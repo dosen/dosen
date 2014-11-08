@@ -1,3 +1,4 @@
-node_modules
-public/bower_components
-.wercker
+/node_modules/
+/public/bower_components/
+/www/
+/.wercker

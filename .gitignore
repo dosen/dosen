@@ -1,5 +1,6 @@
-node_modules
-public/bower_components
-public/*.js
-public/*.css
-.wercker
+/node_modules/
+/public/bower_components/
+/public/*.js
+/public/*.css
+/www/
+/.wercker
