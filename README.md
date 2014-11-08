@@ -34,6 +34,13 @@ npm start
 
 Advanced
 --------
+- continuous developing
 ```
 npm run watch
+```
+
+- linting typescript
+```
+npm install gulp -g
+gulp tslint
 ```
