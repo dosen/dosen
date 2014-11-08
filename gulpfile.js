@@ -23,7 +23,10 @@ gulp.task('tslint', function() {
 
 gulp.task('typescript', function() {
   return gulp.src(paths.ts)
-    .pipe(typescript({safe: true}))
+    .pipe(typescript({
+      noImplicitAny: true,
+      safe: true
+    }))
       .on('error', function() {})
     .pipe(gulp.dest('public/'));
 });
