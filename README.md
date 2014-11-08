@@ -29,13 +29,11 @@ npm run compile
 
 - run server (typically on [http://localhost:9000](http://localhost:9000))
 ```
-npm run start
+npm start
 ```
-or simply open ```public/index.html```
 
 Advanced
 --------
 ```
-npm install gulp bower tsd -g
-gulp watch
+npm run watch
 ```
