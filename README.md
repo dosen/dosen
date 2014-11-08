@@ -12,7 +12,7 @@ Prerequisites
 Download
 --------
 ```
-git clone https://github.com/umireon/client-collab.git
+git clone https://github.com/dosen/dosen.git
 ```
 
 Build
@@ -29,13 +29,18 @@ npm run compile
 
 - run server (typically on [http://localhost:9000](http://localhost:9000))
 ```
-npm run start
+npm start
 ```
-or simply open ```public/index.html```
 
 Advanced
 --------
+- continuous developing
 ```
-npm install gulp bower tsd -g
-gulp watch
+npm run watch
+```
+
+- linting typescript
+```
+npm install gulp -g
+gulp tslint
 ```
