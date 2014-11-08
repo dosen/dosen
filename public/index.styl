@@ -1,0 +1,36 @@
+html, body
+  background #333
+
+h1
+  color white
+  filter blur(10px)
+
+.pane
+  display inline-block
+  width 30%
+
+.metric
+  background white
+  border-radius 20px
+
+.metric__icon
+  display inline-block
+  font-size 30px
+  line-height 30px
+  width 30px
+  text-align center
+  transition transform 1s ease, color 1s ease
+
+.metric__icon--up
+  color red
+  transform rotate(-90deg)
+
+.metric__icon--down
+  color blue
+  transform rotate(90deg)
+
+.metric__title
+  display inline
+
+.metric__value
+  display inline
