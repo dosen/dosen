@@ -1,7 +1,7 @@
 {
   "name": "dosen",
-  "version": "0.0.0",
-  "description": "dosen =====",
+  "version": "0.0.1",
+  "description": "The game comparing metrics of a Wikipedia page, largely depending on the client side programing",
   "main": "index.js",
   "scripts": {
     "postinstall": "bower install && tsc public/*.ts",
