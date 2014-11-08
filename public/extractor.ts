@@ -9,6 +9,7 @@ class Extractor {
   }
 
   static bodyLength(text: string): number {
+    console.log(text);
     var patterns = [
       {re: /([.0-9]+)(?:m|メートル)/, exp: 1},
       {re: /([.0-9]+)(?:cm|センチメートル)/, exp: 1e-2},

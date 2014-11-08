@@ -19,7 +19,7 @@ class Wikipedia {
       console.assert("pages" in query);
       var pages = query["pages"];
       for (var k in pages) {
-        if (pages.hasOwnProperty(k)) {
+        if (!pages.hasOwnProperty(k)) {
           continue;
         }
 
