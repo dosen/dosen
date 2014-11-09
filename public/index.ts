@@ -1,76 +1,48 @@
+/// <reference path="typings/angularjs/angular.d.ts" />
 /// <reference path="extractor.ts" />
 /// <reference path="wikipedia.ts" />
-var panes = document.getElementsByClassName("pane");
-for (var i = 0; i < panes.length; i++) {
-  var pane = <HTMLElement>panes[i];
-  console.assert(pane !== undefined);
-  (function(pane: HTMLElement): void {
-    var submit = <HTMLInputElement>pane.querySelector("input[type=submit]");
-    console.assert(submit != null);
 
-    var search = <HTMLInputElement>pane.querySelector("input[type=text]");
-    console.assert(search != null);
-
-    submit.addEventListener("click", function(): void {
-      var wp = new Wikipedia();
-      wp.getText(search.value).done(function(text: string): void {
-        var animal = Extractor.extract(text);
-
-        var metric_1 = document.getElementById(pane.id + "__metric_1");
-        console.assert(metric_1 != null);
-
-        var title = <HTMLElement>metric_1.querySelector(".metric__title");
-        title.textContent = "bodyLength";
-
-        var value = <HTMLElement>metric_1.querySelector(".metric__value");
-        value.textContent = animal.bodyLength.toString();
-
-        var icon = <HTMLElement>metric_1.querySelector(".metric__icon");
-        if (Math.random() > 0.5) {
-          icon.classList.remove("metric__icon--down");
-          icon.classList.add("metric__icon--up");
-        } else {
-          icon.classList.remove("metric__icon--up");
-          icon.classList.add("metric__icon--down");
-        }
-
-        var metric_2 = document.getElementById(pane.id + "__metric_2");
-        console.assert(metric_2 != null);
-
-        var title2 = <HTMLElement>metric_2.querySelector(".metric__title");
-        title2.textContent = "bodyWeight";
-
-        var value2 = <HTMLElement>metric_2.querySelector(".metric__value");
-        value2.textContent = animal.bodyWeight.toString();
-
-        var icon2 = <HTMLElement>metric_2.querySelector(".metric__icon");
-        if (Math.random() > 0.5) {
-          icon2.classList.remove("metric__icon--down");
-          icon2.classList.add("metric__icon--up");
-        } else {
-          icon2.classList.remove("metric__icon--up");
-          icon2.classList.add("metric__icon--down");
-        }
-      });
-      wp.getBacklinks(search.value).done(function(backlinks: IWpBacklink[]): void {
-        var metric_3 = document.getElementById(pane.id + "__metric_3");
-        console.assert(metric_3 != null);
-
-        var title = <HTMLElement>metric_3.querySelector(".metric__title");
-        title.textContent = "backlinks";
-
-        var value = <HTMLElement>metric_3.querySelector(".metric__value");
-        value.textContent = backlinks.length.toString();
-
-        var icon = <HTMLElement>metric_3.querySelector(".metric__icon");
-        if (Math.random() > 0.5) {
-          icon.classList.remove("metric__icon--down");
-          icon.classList.add("metric__icon--up");
-        } else {
-          icon.classList.remove("metric__icon--up");
-          icon.classList.add("metric__icon--down");
-        }
-      });
-    });
-  })(pane);
+interface IMetricItem {
+  name: string;
+  value: number;
+  icon: string;
 }
+
+class MetricListCtrl {
+  public name: string;
+  public metrics: IMetricItem[];
+
+  constructor(
+    public wikipedia: Wikipedia,
+    public extractor: Extractor
+  ) {
+    this.metrics = [
+      {name: "metric1", value: 1, icon: ""},
+      {name: "metric2", value: 2, icon: ""},
+      {name: "metric3", value: 3, icon: ""}
+    ];
+  }
+
+  public submit(): void {
+    var metrics = this.metrics;
+    var extractor = this.extractor;
+    this.wikipedia.getText(this.name).then(function(text: string): void {
+      var animal = extractor.extract(text);
+      metrics[0].name = "bodyLength";
+      metrics[0].value = animal.bodyLength;
+      metrics[0].icon = "metric__icon--up";
+      metrics[1].name = "bodyWeight";
+      metrics[1].value = animal.bodyWeight;
+      metrics[1].icon = "metric__icon--down";
+    });
+    this.wikipedia.getBacklinks(this.name).then(function(backlinks: IWpBacklink[]): void {
+      metrics[2].name = "backlinks";
+      metrics[2].value = backlinks.length;
+      metrics[2].icon = "metric__icon--down";
+    });
+  }
+}
+
+var dosenApp = angular
+  .module("dosenApp", [])
+  .controller("MetricListCtrl", MetricListCtrl);

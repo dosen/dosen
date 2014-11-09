@@ -1,23 +1,23 @@
 doctype html
-html(lang="ja")
+html(lang="ja",ng-app="dosenApp")
   head
     meta(charset="UTF-8")
     title dosen
+    script(src="bower_components/angularjs/angular.js")
     script(src="bower_components/jquery/dist/jquery.min.js")
     script(src="animal.js")
+    script(src="index.js")
     script(src="extractor.js")
     script(src="wikipedia.js")
     link(rel="stylesheet",href="index.css")
-  body
+  body(ng-controller="MetricListCtrl as c")
     h1 dosen
     each p in [1, 2]
       .pane(id="pane_#{p}")
         p
-          input(type="text",value="ペリカン")
-          input(type="submit")
-        each m in [1, 2, 3]
-          .metric(id="pane_#{p}__metric_#{m}")
-            p.metric__icon &#10145;
-            p.metric__title metric#{m}
-            p.metric__value 0
-    script(src="index.js")
+          input(type="text" ng-model="c.name")
+          input(type="submit" ng-click="c.submit()")
+        .metric(ng-repeat="metric in c.metrics")
+          p.metric__icon(ng-class="metric.icon") &#10145;
+          p.metric__name {{metric.name}}
+          p.metric__value {{metric.value}}
