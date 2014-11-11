@@ -24,9 +24,11 @@ gulp.task('tslint', function() {
 gulp.task('typescript', function() {
   return gulp.src(paths.ts)
     .pipe(typescript({
+      emitError: false,
+      module: 'amd',
       noImplicitAny: true,
-      safe: true
+      safe: true,
+      out: "dosenApp.js"
     }))
-      .on('error', function() {})
     .pipe(gulp.dest('public/'));
 });

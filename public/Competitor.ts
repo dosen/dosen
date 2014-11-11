@@ -1,9 +1,3 @@
-/// <reference path="typings/angularjs/angular.d.ts" />
-/// <reference path="Extractor.ts" />
-/// <reference path="ICompetitor.ts" />
-/// <reference path="IMetricItem.ts" />
-/// <reference path="Wikipedia.ts" />
-
 class Competitor implements ICompetitor {
   public name: string;
   public metrics: IMetricItem[];

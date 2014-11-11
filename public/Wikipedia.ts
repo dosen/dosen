@@ -77,5 +77,3 @@ interface IWpBacklink {
   ns: number;
   title: string;
 }
-
-angular.module("dosenApp").service("wikipedia", Wikipedia);
