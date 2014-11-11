@@ -1,20 +1,16 @@
 /// <reference path="typings/angularjs/angular.d.ts" />
-/// <reference path="extractor.ts" />
-/// <reference path="wikipedia.ts" />
+/// <reference path="Extractor.ts" />
+/// <reference path="ICompetitor.ts" />
+/// <reference path="IMetricItem.ts" />
+/// <reference path="Wikipedia.ts" />
 
-interface IMetricItem {
-  name: string;
-  value: number;
-  icon: string;
-}
-
-class MetricListCtrl {
+class Competitor implements ICompetitor {
   public name: string;
   public metrics: IMetricItem[];
 
   constructor(
-    public wikipedia: Wikipedia,
-    public extractor: Extractor
+    private extractor: Extractor,
+    private wikipedia: Wikipedia
   ) {
     this.metrics = [
       {name: "metric1", value: 1, icon: ""},
@@ -23,7 +19,7 @@ class MetricListCtrl {
     ];
   }
 
-  public submit(): void {
+  public update(): void {
     var metrics = this.metrics;
     var extractor = this.extractor;
     this.wikipedia.getText(this.name).then(function(text: string): void {
@@ -42,7 +38,3 @@ class MetricListCtrl {
     });
   }
 }
-
-var dosenApp = angular
-  .module("dosenApp", [])
-  .controller("MetricListCtrl", MetricListCtrl);

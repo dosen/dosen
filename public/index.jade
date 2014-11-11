@@ -4,20 +4,28 @@ html(lang="ja",ng-app="dosenApp")
     meta(charset="UTF-8")
     title dosen
     script(src="bower_components/angularjs/angular.js")
-    script(src="bower_components/jquery/dist/jquery.min.js")
-    script(src="animal.js")
-    script(src="index.js")
-    script(src="extractor.js")
-    script(src="wikipedia.js")
+    script(src="CompetitionCtrl.js")
+    script(src="Animal.js")
+    script(src="Competitor.js")
+    script(src="CompetitorFactory.js")
+    script(src="Extractor.js")
+    script(src="Wikipedia.js")
     link(rel="stylesheet",href="index.css")
-  body(ng-controller="MetricListCtrl as c")
+  body(ng-controller="CompetitionCtrl as c")
     h1 dosen
-    each p in [1, 2]
-      .pane(id="pane_#{p}")
-        p
-          input(type="text" ng-model="c.name")
-          input(type="submit" ng-click="c.submit()")
-        .metric(ng-repeat="metric in c.metrics")
-          p.metric__icon(ng-class="metric.icon") &#10145;
-          p.metric__name {{metric.name}}
-          p.metric__value {{metric.value}}
+    .pane
+      p
+        input(type="text" ng-model="c.companion.name")
+        input(type="submit" ng-click="c.companion.update()")
+      .metric(ng-repeat="metric in c.companion.metrics")
+        p.metric__icon(ng-class="metric.icon") &#10145;
+        p.metric__name {{metric.name}}
+        p.metric__value {{metric.value}}
+    .pane
+      p
+        input(type="text" ng-model="c.opponent.name")
+        input(type="submit" ng-click="c.opponent.update()")
+      .metric(ng-repeat="metric in c.opponent.metrics")
+        p.metric__icon(ng-class="metric.icon") &#10145;
+        p.metric__name {{metric.name}}
+        p.metric__value {{metric.value}}
