@@ -25,10 +25,10 @@ gulp.task('typescript', function() {
   return gulp.src(paths.ts)
     .pipe(typescript({
       emitError: false,
-      module: 'amd',
       noImplicitAny: true,
       safe: true,
-      out: "dosenApp.js"
+      out: "dosenApp.js",
+      sourcemap: true
     }))
     .pipe(gulp.dest('public/'));
 });
