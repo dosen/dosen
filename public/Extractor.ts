@@ -1,15 +1,12 @@
-/// <reference path="animal.ts" />
-
 class Extractor {
-  static extract(text: string): Animal {
+  public extract(text: string): Animal {
     var animal = new Animal();
     animal.bodyLength = this.bodyLength(text);
     animal.bodyWeight = this.bodyWeight(text);
     return animal;
   }
 
-  static bodyLength(text: string): number {
-    console.log(text);
+  public bodyLength(text: string): number {
     var patterns = [
       {re: /([.0-9]+)(?:m|メートル)/, exp: 1},
       {re: /([.0-9]+)(?:cm|センチメートル)/, exp: 1e-2},
@@ -24,7 +21,7 @@ class Extractor {
     }
   }
 
-  static bodyWeight(text: string): number {
+  public bodyWeight(text: string): number {
     var patterns = [
       {re: /([.0-9]+)(?:g|グラム)/, exp: 1e-3},
       {re: /([.0-9]+)(?:kg|キログラム)/, exp: 1},
@@ -39,7 +36,7 @@ class Extractor {
     }
   }
 
-  static recBodyLength(text: string): number {
+  public recBodyLength(text: string): number {
     var patterns = [
       {re: /([.0-9]+)(?:m|メートル)/, exp: 1},
       {re: /([.0-9]+)(?:cm|センチメートル)/, exp: 1e-2},
@@ -54,7 +51,7 @@ class Extractor {
     }
   }
 
-  static recBodyWeight(text: string): number {
+  public recBodyWeight(text: string): number {
     var patterns = [
       {re: /([.0-9]+)(?:g|グラム)/, exp: 1e-3},
       {re: /([.0-9]+)(?:kg|キログラム)/, exp: 1},
@@ -69,7 +66,7 @@ class Extractor {
     }
   }
 
-  static nameLength(text: string): number {
+  public nameLength(text: string): number {
     var pattern = /(?:名称 =)([ァ-ン]+)/;
     var m = pattern.exec(text);
     if (m != null) {
@@ -77,7 +74,7 @@ class Extractor {
     }
   }
 
-  static recNameLength(text: string): number {
+  public recNameLength(text: string): number {
     var pattern = /(?:名称 =)([ァ-ン]+)/;
     var m = pattern.exec(text);
     if (m != null) {
