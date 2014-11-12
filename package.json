@@ -6,9 +6,9 @@
   "scripts": {
     "postinstall": "bower install && npm run compile",
     "start": "harp server",
-    "test": "harp compile",
+    "test": "gulp tslint && harp compile",
     "tsd": "tsd reinstall",
-    "compile": "tsc --out public/dosenApp.js public/*.ts",
+    "compile": "tsc --sourceMap --out public/dosenApp.js public/*.ts",
     "watch": "gulp watch"
   },
   "repository": {
