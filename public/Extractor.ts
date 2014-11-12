@@ -1,3 +1,4 @@
+/// <reference path="Animal.ts"/>
 class Extractor {
   public extract(text: string): Animal {
     var animal = new Animal();
