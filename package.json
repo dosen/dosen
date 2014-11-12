@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "bower install && npm run compile",
+    "start": "harp server",
     "test": "gulp tslint && harp compile",
     "tsd": "tsd reinstall",
     "compile": "tsc --sourceMap --out public/dosenApp.js public/*.ts",
