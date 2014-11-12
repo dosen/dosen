@@ -16,13 +16,13 @@ gulp.task("watch", function() {
 });
 
 gulp.task("tslint", function() {
-  return gulp.src(paths.ts)
+  gulp.src(paths.ts)
     .pipe(tslint())
     .pipe(tslint.report("verbose"));
 });
 
 gulp.task("typescript", function() {
-  return gulp.src("*.ts", { cwd: "public" })
+  return gulp.src(paths.ts)
     .pipe(typescript({
       emitError: false,
       noImplicitAny: true,
