@@ -8,7 +8,7 @@
     "start": "harp server",
     "test": "harp compile",
     "tsd": "tsd reinstall",
-    "compile": "gulp typescript",
+    "compile": "tsc --out public/dosenApp.js public/*.ts",
     "watch": "gulp watch"
   },
   "repository": {
