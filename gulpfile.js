@@ -1,3 +1,4 @@
+var foreach = require("gulp-foreach");
 var gulp = require("gulp");
 var spawn = require("child_process").spawn;
 var tslint = require("gulp-tslint");
@@ -9,7 +10,7 @@ var paths = {
 
 gulp.task("default", ["typescript"]);
 
-gulp.task("test", ["typescript"]);
+gulp.task("test", ["checkDependencies", "tslint"]);
 gulp.task("watch", function() {
   gulp.watch(paths.ts, ["typescript"]);
   spawn("npm", ["start"]);
@@ -21,8 +22,18 @@ gulp.task("tslint", function() {
     .pipe(tslint.report("verbose"));
 });
 
+gulp.task("checkDependencies", function() {
+  return gulp.src(paths.ts)
+    .pipe(foreach(function(stream, file){
+      return stream
+        .pipe(typescript({
+          noImplicitAny: true
+        }));
+    }));
+});
+
 gulp.task("typescript", function() {
-  return gulp.src("*.ts", { cwd: "public" })
+  return gulp.src(paths.ts)
     .pipe(typescript({
       emitError: false,
       noImplicitAny: true,

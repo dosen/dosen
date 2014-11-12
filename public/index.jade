@@ -6,21 +6,26 @@ html(lang="ja",ng-app="dosenApp")
     script(src="bower_components/angularjs/angular.js")
     script(src="dosenApp.js")
     link(rel="stylesheet",href="index.css")
-  body(ng-controller="CompetitionCtrl as c")
+  body
     h1 dosen
-    .pane
-      p
-        input(type="text" ng-model="c.companion.name")
-        input(type="submit" ng-click="c.companion.update()")
-      .metric(ng-repeat="metric in c.companion.metrics")
-        p.metric__icon(ng-class="metric.icon") &#10145;
-        p.metric__name {{metric.name}}
-        p.metric__value {{metric.value}}
-    .pane
-      p
-        input(type="text" ng-model="c.opponent.name")
-        input(type="submit" ng-click="c.opponent.update()")
-      .metric(ng-repeat="metric in c.opponent.metrics")
-        p.metric__icon(ng-class="metric.icon") &#10145;
-        p.metric__name {{metric.name}}
-        p.metric__value {{metric.value}}
+    .competition(ng-controller="CompetitionCtrl as c")
+      .competitor.competition__competitor
+        p.competitor__input
+          input(type="text" ng-model="c.companion.name")
+          input(type="submit" ng-click="c.companion.update()")
+        p.competitor__image
+          img(src="//placehold.it/300x230")
+        .metric.competitor__metric(ng-repeat="metric in c.companion.metrics")
+          p.metric__icon(ng-class="metric.icon") &#10145;
+          p.metric__name {{metric.name}}
+          p.metric__value {{metric.value}}
+      .competitor.competition__competitor
+        p.competitor__input
+          input(type="text" ng-model="c.opponent.name")
+          input(type="submit" ng-click="c.opponent.update()")
+        p.competitor__image
+          img(src="//upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Elephant_near_ndutu.jpg/500px-Elephant_near_ndutu.jpg")
+        .metric.competitor__metric(ng-repeat="metric in c.opponent.metrics")
+          p.metric__icon(ng-class="metric.icon") &#10145;
+          p.metric__name {{metric.name}}
+          p.metric__value {{metric.value}}
