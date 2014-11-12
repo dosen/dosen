@@ -4,7 +4,7 @@ module wp {
   "use strict";
 
   export class Wikipedia {
-    public endpoint = "http://ja.wikipedia.org/w/api.php";
+    public endpoint = "//ja.wikipedia.org/w/api.php";
 
     constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
     }
