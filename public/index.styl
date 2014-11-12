@@ -1,60 +1,71 @@
+competitor-width = 400px
+image-width = 230px
+metric-margin = 2px
+icon-size = 30px
+
 html, body
   background #333
 
 h1
-  text-align center
   color white
-  filter blur(1px)
+  text-align center
   margin 0
+  padding 0
+  filter blur(1px)
 
 .competition
-  margin-left auto
-  margin-right auto
   display flex
   justify-content center
 
-.competition__competitor
-  flex 1
-  margin 2%
-  max-width 400px
+  .competition__competitor
+    margin 0 1%
+    flex 1
+    max-width competitor-width
 
-.competitor__input
-  text-align center
+.competitor
+  .competitor__input
+    text-align center
 
-.competitor__image
-  height 230px
-  text-align center
+  .competitor__image
+    line-height image-width
+    text-align center
 
-.competitor__metric
-  margin-left auto
-  margin-right auto
-  background #f9f9f9
-  border-radius 20px
+    img
+      vertical-align middle
+      height auto
+      max-height image-width
+      max-width 100%
+
+  .competitor__metric
+    background #f9f9f9
+    border-radius 20px
 
 .metric
+  margin metric-margin 0
   display flex
   align-items center
 
-.metric p
-  margin 0
-  padding 0
-  text-align center
-  word-wrap break-word
-  height 100%
+  p
+    text-align center
+    height 100%
+    margin 0
+    word-wrap break-word
 
-.metric__icon
-  font-size 30px
-  width 30px
-  line-height 30px
-  transition transform 1s ease, color 1s ease
+  .metric__icon
+    font-size icon-size
+    line-height icon-size
+    width icon-size
+    flex 0.3
+    transition transform 1s ease, color 1s ease
 
-.metric__icon--up
-  color red
-  transform rotate(-90deg)
+    &--up
+      color red
+      transform rotate(-90deg)
 
-.metric__icon--down
-  color blue
-  transform rotate(90deg)
+    &--down
+      color blue
+      transform rotate(90deg)
 
-.metric__name, .metric__value
-  flex 1 1 0px
+  .metric__name
+  .metric__value
+    flex 1

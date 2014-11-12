@@ -9,7 +9,7 @@ html(lang="ja",ng-app="dosenApp")
   body
     h1 dosen
     .competition(ng-controller="CompetitionCtrl as c")
-      .competition__competitor
+      .competitor.competition__competitor
         p.competitor__input
           input(type="text" ng-model="c.companion.name")
           input(type="submit" ng-click="c.companion.update()")
@@ -19,12 +19,12 @@ html(lang="ja",ng-app="dosenApp")
           p.metric__icon(ng-class="metric.icon") &#10145;
           p.metric__name {{metric.name}}
           p.metric__value {{metric.value}}
-      .competition__competitor
+      .competitor.competition__competitor
         p.competitor__input
           input(type="text" ng-model="c.opponent.name")
           input(type="submit" ng-click="c.opponent.update()")
         p.competitor__image
-          img(src="http://placehold.it/300x230")
+          img(src="http://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Elephant_near_ndutu.jpg/500px-Elephant_near_ndutu.jpg")
         .metric.competitor__metric(ng-repeat="metric in c.opponent.metrics")
           p.metric__icon(ng-class="metric.icon") &#10145;
           p.metric__name {{metric.name}}
