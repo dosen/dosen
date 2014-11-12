@@ -6,6 +6,8 @@ dosen
 [![Stories in Ready](https://badge.waffle.io/dosen/dosen.png?label=ready&title=Ready)](https://waffle.io/dosen/dosen)
 [![endorse](https://api.coderwall.com/umireon/endorsecount.png)](https://coderwall.com/umireon)
 
+[![Throughput Graph](https://graphs.waffle.io/dosen/dosen/throughput.svg)](https://waffle.io/dosen/dosen/metrics)
+
 The game comparing metrics of a Wikipedia page, largely depending on the client
 side programing.
 
