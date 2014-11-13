@@ -24,6 +24,7 @@
   "dependencies": {
     "bower": "^1.3.12",
     "harp": "^0.14.0",
+    "newrelic": "^1.13.2",
     "typescript": "^1.1.0-1"
   },
   "devDependencies": {
