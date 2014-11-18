@@ -47,6 +47,23 @@ module wp {
           return deferred.promise;
         });
     }
+
+    public getTransclusions(title: string): ng.IPromise<any> {
+      var $q = this.$q;
+      var url = this.endpoint + "?format=json&callback=JSON_CALLBACK&continue="
+        + "&action=query&generator=transcludedin&prop=info&gtilimit=500";
+
+      console.debug("getting from Wikipadia the transclusions of " + title);
+      return this.$http
+        .jsonp(url, { params: { titles: title } })
+        .then(function(arg: IPromisedResultArg): ng.IPromise<IPage[]> {
+          var pages = arg.data["query"]["pages"];
+          console.debug("retrieved the transclusions of " + title);
+          var deferred = $q.defer();
+          deferred.resolve(pages);
+          return deferred.promise;
+        });
+    }
   }
 
   export interface IPromisedResultArg
