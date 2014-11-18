@@ -48,7 +48,7 @@ module wp {
         });
     }
 
-    public getTransclusions(title: string): ng.IPromise<any> {
+    public getTransclusions(title: string): ng.IPromise<IPages> {
       var $q = this.$q;
       var url = this.endpoint + "?format=json&callback=JSON_CALLBACK&continue="
         + "&action=query&generator=transcludedin&prop=info&gtilimit=500";
@@ -56,9 +56,26 @@ module wp {
       console.debug("getting from Wikipadia the transclusions of " + title);
       return this.$http
         .jsonp(url, { params: { titles: title } })
-        .then(function(arg: IPromisedResultArg): ng.IPromise<IPage[]> {
+        .then(function(arg: IPromisedResultArg): ng.IPromise<IPages> {
           var pages = arg.data["query"]["pages"];
           console.debug("retrieved the transclusions of " + title);
+          var deferred = $q.defer();
+          deferred.resolve(pages);
+          return deferred.promise;
+        });
+    }
+
+    public getCategoryMembers(cmtitle: string): ng.IPromise<IPage[]> {
+      var $q = this.$q;
+      var url = this.endpoint + "?format=json&callback=JSON_CALLBACK&continue="
+        + "&action=query&list=categorymembers&cmlimit=500";
+
+      console.debug("getting from Wikipadia the category members of " + cmtitle);
+      return this.$http
+        .jsonp(url, { params: { cmtitle: cmtitle } })
+        .then(function(arg: IPromisedResultArg): ng.IPromise<IPage[]> {
+          var pages = arg.data["query"]["categorymembers"];
+          console.debug("retrieved the category members of " + cmtitle);
           var deferred = $q.defer();
           deferred.resolve(pages);
           return deferred.promise;
@@ -75,12 +92,18 @@ module wp {
   }
 
   export interface IQuery {
-    pages?: {[n: string]: IPage};
+    pages?: IPages;
+    categorymembers?: IPage[];
     backlinks?: IBacklink[];
   }
 
+  export interface IPages {
+    [n: string]: IPage;
+  }
+
   export interface IPage {
-    revisions: IRevision[];
+    title?: string;
+    revisions?: IRevision[];
   }
 
   export interface IRevision {
