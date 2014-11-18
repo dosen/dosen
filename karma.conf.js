@@ -1,22 +1,20 @@
 module.exports = function(config) {
   config.set({
-    basePath: '',
     frameworks: ['mocha', 'chai'],
     files: [
       'public/bower_components/angular/angular.js',
       'public/*.js',
-      'tests/*.js'
+      'tests/*.js',
+      {pattern: 'public/*.js.map', included: false},
+      {pattern: 'public/*.ts', included: false}
     ],
-    exclude: [
-    ],
-    preprocessors: {
-    },
-    reporters: ['progress'],
-    port: 9876,
-    colors: true,
-    logLevel: config.LOG_INFO,
+    reporters: ['mocha'],
     autoWatch: true,
     browsers: ['Chrome'],
-    singleRun: false
+    client: {
+      mocha: {
+        reporter: 'html'
+      }
+    }
   });
 };
