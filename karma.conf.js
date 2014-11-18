@@ -3,7 +3,7 @@ module.exports = function(config) {
     basePath: '',
     frameworks: ['mocha', 'chai'],
     files: [
-      'public/bower_components/angularjs/angular.js',
+      'public/bower_components/angular/angular.js',
       'public/*.js',
       'tests/*.js'
     ],
