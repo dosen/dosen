@@ -18,7 +18,7 @@ html(lang="ja",ng-app="dosenApp")
         .metric.competitor__metric(ng-repeat="metric in c.companion.metrics")
           p.metric__icon(ng-class="metric.icon") &#10145;
           p.metric__name {{metric.name}}
-          p.metric__value {{metric.value}}
+          p.metric__text {{metric.text}}
       .competitor.competition__competitor
         p.competitor__input
           input(type="text" ng-model="c.opponent.name")
@@ -28,4 +28,4 @@ html(lang="ja",ng-app="dosenApp")
         .metric.competitor__metric(ng-repeat="metric in c.opponent.metrics")
           p.metric__icon(ng-class="metric.icon") &#10145;
           p.metric__name {{metric.name}}
-          p.metric__value {{metric.value}}
+          p.metric__text {{metric.text}}
