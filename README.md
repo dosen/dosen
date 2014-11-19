@@ -5,10 +5,8 @@ dosen
 [![devDependency Status](https://david-dm.org/dosen/dosen/dev-status.svg?style=flat)](https://david-dm.org/dosen/dosen#info=devDependencies)
 [![endorse](https://api.coderwall.com/umireon/endorsecount.png)](https://coderwall.com/umireon)
 
-[![Stories in Backlog](https://badge.waffle.io/dosen/dosen.png?label=ready&title=Backlog)](https://waffle.io/dosen/dosen)
 [![Stories in Ready](https://badge.waffle.io/dosen/dosen.png?label=ready&title=Ready)](https://waffle.io/dosen/dosen)
-[![Stories in In Progress](https://badge.waffle.io/dosen/dosen.png?label=ready&title=In%20Progress)](https://waffle.io/dosen/dosen)
-[![Stories in Done](https://badge.waffle.io/dosen/dosen.png?label=ready&title=Done)](https://waffle.io/dosen/dosen)
+[![Stories in In Progress](https://badge.waffle.io/dosen/dosen.png?label=in%20progress&title=In%20Progress)](https://waffle.io/dosen/dosen)
 
 [![Throughput Graph](https://graphs.waffle.io/dosen/dosen/throughput.svg)](https://waffle.io/dosen/dosen/metrics)
 
