@@ -29,12 +29,27 @@ h1
   .competitor__image
     line-height image-width
     text-align center
+    position relative
 
     img
       vertical-align middle
       height auto
       max-height image-width
       max-width 100%
+
+    p
+      position absolute
+      top 0
+      left 0
+      margin 0
+      width 100%
+      font-size 40px
+
+      &.win
+        color red
+
+      &.lose
+        color blue
 
   .competitor__metric
     background #f9f9f9

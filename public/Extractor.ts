@@ -10,9 +10,9 @@ class Extractor {
 
   public bodyLength(text: string): comp.IMetricItem {
     var patterns = [
-      {re: /([.0-9]+)(?:m|メートル)/, exp: 1},
-      {re: /([.0-9]+)(?:cm|センチメートル)/, exp: 1e-2},
-      {re: /([.0-9]+)(?:mm|ミリメートル)/, exp: 1e-3}
+      {re: /([0-9][.0-9]+)(?:m|メートル)/, exp: 1},
+      {re: /([0-9][.0-9]+)(?:cm|センチメートル)/, exp: 1e-2},
+      {re: /([0-9][.0-9]+)(?:mm|ミリメートル)/, exp: 1e-3}
     ];
     var metric = {name: "体長", text: "NOT FOUND(0)", value: 0};
     for (var i = 0; i < patterns.length; i++) {
@@ -29,9 +29,9 @@ class Extractor {
 
   public bodyWeight(text: string): comp.IMetricItem {
     var patterns = [
-      {re: /([.0-9]+)(?:g|グラム)/, exp: 1e-3},
-      {re: /([.0-9]+)(?:kg|キログラム)/, exp: 1},
-      {re: /([.0-9]+)(?:t|トン)/, exp: 1e3}
+      {re: /([0-9][.0-9]+)(?:g|グラム)/, exp: 1e-3},
+      {re: /([0-9][.0-9]+)(?:kg|キログラム)/, exp: 1},
+      {re: /([0-9][.0-9]+)(?:t|トン)/, exp: 1e3}
     ];
     var metric = {name: "体重", text: "NOT FOUND(0)", value: 0};
     for (var i = 0; i < patterns.length; i++) {
