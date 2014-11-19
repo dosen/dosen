@@ -16,6 +16,14 @@ describe("Extractor", function(): void {
       expect(metric).to.have.property("text").and.equal("10m");
       expect(metric).to.have.property("value").and.equal(10);
     });
+
+    it("should get some value for invalid text", (): void => {
+      var text = "a b";
+      var metric = extractor.bodyLength(text);
+      expect(metric).to.have.property("name").and.equal("体長");
+      expect(metric).to.have.property("text");
+      expect(metric).to.have.property("value");
+    });
   });
 
   describe("#bodyWeight", function(): void {
@@ -25,6 +33,14 @@ describe("Extractor", function(): void {
       expect(metric).to.have.property("name").and.equal("体重");
       expect(metric).to.have.property("text").and.equal("10g");
       expect(metric).to.have.property("value").and.equal(10e-3);
+    });
+
+    it("should get some value for invalid text", (): void => {
+      var text = "a b";
+      var metric = extractor.bodyWeight(text);
+      expect(metric).to.have.property("name").and.equal("体重");
+      expect(metric).to.have.property("text");
+      expect(metric).to.have.property("value");
     });
   });
 
@@ -36,6 +52,14 @@ describe("Extractor", function(): void {
       expect(metric).to.have.property("text").and.equal("10m");
       expect(metric).to.have.property("value").and.equal(1 / 10);
     });
+
+    it("should get some value for invalid text", (): void => {
+      var text = "a b";
+      var metric = extractor.recBodyLength(text);
+      expect(metric).to.have.property("name").and.equal("1/体長");
+      expect(metric).to.have.property("text");
+      expect(metric).to.have.property("value").and.above(1e30);
+    });
   });
 
   describe("#recBodyWeight", function(): void {
@@ -44,7 +68,15 @@ describe("Extractor", function(): void {
       var metric = extractor.recBodyWeight(text);
       expect(metric).to.have.property("name").and.equal("1/体重");
       expect(metric).to.have.property("text").and.equal("10g");
-      expect(metric).to.have.property("value").and.equal(1 / 10e-3);
+      expect(metric).to.have.property("value").and.above(1 / 10);
+    });
+
+    it("should get some value for invalid text", (): void => {
+      var text = "a b";
+      var metric = extractor.recBodyWeight(text);
+      expect(metric).to.have.property("name").and.equal("1/体重");
+      expect(metric).to.have.property("text");
+      expect(metric).to.have.property("value").and.above(1e30);
     });
   });
 
@@ -56,6 +88,14 @@ describe("Extractor", function(): void {
       expect(metric).to.have.property("text").and.equal("ナマエ");
       expect(metric).to.have.property("value").and.equal(3);
     });
+
+    it("should get some value for invalid text", (): void => {
+      var text = "a b";
+      var metric = extractor.nameLength(text);
+      expect(metric).to.have.property("name").and.equal("名前長");
+      expect(metric).to.have.property("text");
+      expect(metric).to.have.property("value").and.equal(0);
+    });
   });
 
   describe("#recNameLength", function(): void {
@@ -65,6 +105,14 @@ describe("Extractor", function(): void {
       expect(metric).to.have.property("name").and.equal("1/名前長");
       expect(metric).to.have.property("text").and.equal("ナマエ");
       expect(metric).to.have.property("value").and.equal(1 / 3);
+    });
+
+    it("should get some value for invalid text", (): void => {
+      var text = "a b";
+      var metric = extractor.recNameLength(text);
+      expect(metric).to.have.property("name").and.equal("1/名前長");
+      expect(metric).to.have.property("text");
+      expect(metric).to.have.property("value").and.above(1e30);
     });
   });
 });
