@@ -1,4 +1,5 @@
 /// <reference path="Animal.ts"/>
+/// <reference path="comp.ts"/>
 class Extractor {
   public extract(text: string): Animal {
     var animal = new Animal();
