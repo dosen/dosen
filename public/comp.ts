@@ -34,12 +34,15 @@ module comp {
       var metrics = this.metrics;
       var extractor = this.extractor;
       this.wikipedia.getText(this.name).then(function(text: string): void {
-        var animal = extractor.extract(text);
-        metrics[0].name = "bodyLength";
-        metrics[0].value = animal.bodyLength;
+        var m0 = extractor.bodyLength(text);
+        metrics[0].name = m0.name;
+        metrics[0].text = m0.text;
+        metrics[0].value = m0.value;
         metrics[0].icon = "metric__icon--up";
-        metrics[1].name = "bodyWeight";
-        metrics[1].value = animal.bodyWeight;
+        var m1 = extractor.bodyWeight(text);
+        metrics[1].name = m1.name;
+        metrics[1].text = m1.text;
+        metrics[1].value = m1.value;
         metrics[1].icon = "metric__icon--down";
       });
       this.wikipedia.getBacklinks(this.name)
