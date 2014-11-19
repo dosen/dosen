@@ -67,19 +67,27 @@ class Extractor {
     }
   }
 
-  public nameLength(text: string): number {
-    var pattern = /(?:名称 =)([ァ-ン]+)/;
+  public nameLength(text: string): comp.IMetricItem {
+    var pattern = /(?:名称\s*=\s*)([ァ-ン]+)/;
     var m = pattern.exec(text);
     if (m != null) {
-      return m[1].length;
+      return {
+        name: "名前長",
+        text: m[1],
+        value: m[1].length
+      };
     }
   }
 
-  public recNameLength(text: string): number {
-    var pattern = /(?:名称 =)([ァ-ン]+)/;
+  public recNameLength(text: string): comp.IMetricItem {
+    var pattern = /(?:名称\s*=\s*)([ァ-ン]+)/;
     var m = pattern.exec(text);
     if (m != null) {
-      return 1 / m[1].length;
+      return {
+        name: "1/名前長",
+        text: m[1],
+        value: 1 / m[1].length
+      };
     }
   }
 }

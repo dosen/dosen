@@ -10,8 +10,9 @@ module comp {
 
   export interface IMetricItem {
     name: string;
+    text: string;
     value: number;
-    icon: string;
+    icon?: string;
   }
 
   export class Competitor implements ICompetitor {
@@ -23,9 +24,9 @@ module comp {
       private wikipedia: wp.Wikipedia
     ) {
       this.metrics = [
-        {name: "metric1", value: 1, icon: ""},
-        {name: "metric2", value: 2, icon: ""},
-        {name: "metric3", value: 3, icon: ""}
+        {name: "metric1", text: "1", value: 1, icon: ""},
+        {name: "metric2", text: "2", value: 2, icon: ""},
+        {name: "metric3", text: "3", value: 3, icon: ""}
       ];
     }
 

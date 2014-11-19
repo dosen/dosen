@@ -5,7 +5,8 @@ var tslint = require("gulp-tslint");
 var typescript = require("gulp-tsc");
 
 var paths = {
-  ts: "public/*.ts"
+  ts: "public/*.ts",
+  tsTests: "public/tests/**/*.ts"
 }
 
 gulp.task("default", ["typescript"]);
@@ -39,6 +40,18 @@ gulp.task("typescript", function() {
       noImplicitAny: true,
       safe: true,
       out: "dosenApp.js",
+      outDir: "public/",
+      sourcemap: true
+    }))
+    .pipe(gulp.dest("public/"));
+});
+
+gulp.task("ts-tests", function() {
+  return gulp.src(paths.tsTests)
+    .pipe(typescript({
+      emitError: false,
+      noImplicitAny: true,
+      safe: true,
       outDir: "public/",
       sourcemap: true
     }))
