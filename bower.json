@@ -1,7 +1,7 @@
 {
   "name": "dosen",
   "main": "index.js",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "homepage": "https://github.com/dosen/dosen",
   "authors": [
     "Kaito Udagawa <umireon@gmail.com>"
