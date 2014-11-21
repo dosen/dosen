@@ -1,3 +1,4 @@
+require("newrelic");
 var harp = require("harp")
 var dirPath = __dirname;
 var port = process.env.PORT || 9000;
