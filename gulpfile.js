@@ -12,7 +12,7 @@ var paths = {
 
 gulp.task("default", ["typescript"]);
 
-gulp.task("test", ["checkDependencies", "tslint"]);
+gulp.task("test", ["checkDependencies", "tslint", "karma"]);
 gulp.task("watch", function() {
   gulp.watch(paths.ts, ["typescript"]);
   gulp.watch(paths.tsTests, ["ts-tests"]);
