@@ -1,5 +1,6 @@
 var foreach = require("gulp-foreach");
 var gulp = require("gulp");
+var karma = require('karma').server;
 var spawn = require("child_process").spawn;
 var tslint = require("gulp-tslint");
 var typescript = require("gulp-tsc");
@@ -11,11 +12,17 @@ var paths = {
 
 gulp.task("default", ["typescript"]);
 
-gulp.task("test", ["checkDependencies", "tslint"]);
+gulp.task("test", ["checkDependencies", "tslint", "karma"]);
 gulp.task("watch", function() {
   gulp.watch(paths.ts, ["typescript"]);
   gulp.watch(paths.tsTests, ["ts-tests"]);
   spawn("npm", ["start"]);
+});
+
+gulp.task("karma", ["ts-tests"], function (done) {
+  karma.start({
+    configFile: __dirname + "/karma-ci.conf.js"
+  }, done);
 });
 
 gulp.task("tslint", function() {
