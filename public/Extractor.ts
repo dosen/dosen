@@ -1,13 +1,5 @@
-/// <reference path="Animal.ts"/>
 /// <reference path="comp.ts"/>
 class Extractor {
-  public extract(text: string): Animal {
-    var animal = new Animal();
-    animal.bodyLength = this.bodyLength(text).value;
-    animal.bodyWeight = this.bodyWeight(text).value;
-    return animal;
-  }
-
   public bodyLength(text: string): comp.IMetricItem {
     var patterns = [
       {re: /([0-9][.0-9]+)(?:m|メートル)/, exp: 1},
