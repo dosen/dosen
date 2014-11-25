@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "bower install && npm run compile",
     "start": "harp server",
-    "test": "gulp test && harp compile && karma start karma-ci.conf.js",
+    "test": "gulp test && harp compile",
     "tsd": "tsd reinstall",
     "compile": "tsc --sourceMap --out public/dosenApp.js public/*.ts",
     "watch": "gulp watch"
@@ -37,7 +37,6 @@
     "karma": "^0.12.25",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^0.1.5",
-    "karma-cli": "0.0.4",
     "karma-mocha": "^0.1.9",
     "karma-mocha-reporter": "^0.3.1",
     "karma-phantomjs-launcher": "^0.1.4",
