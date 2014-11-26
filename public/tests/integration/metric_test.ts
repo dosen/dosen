@@ -1,31 +1,42 @@
 /// <reference path="../test_helper.d.ts"/>
-describe("Extractor", function(): void {
+describe("metric", function(): void {
   var expect = chai.expect;
-  var extractor: Extractor;
+  var wikipedia: wp.Wikipedia;
 
-  beforeEach(function(): void {
+  before(function(): void {
     var $injector = angular.injector(["ng", "dosenApp"]);
-    extractor = $injector.get("extractor");
+    wikipedia = $injector.get("wikipedia");
   });
 
-  describe("#bodyLength", function(): void {
-    it("should get a 'm' metric", (): void => {
-      var text = "a 10m b";
-      var metric = extractor.bodyLength(text);
-      expect(metric).to.have.property("name").and.equal("体長");
-      expect(metric).to.have.property("text").and.equal("10m");
-      expect(metric).to.have.property("value").and.equal(10);
+  describe("BodyLength", function(): void {
+    var m: metric.IMetric;
+
+    beforeEach(function(): void {
+      m = new metric.BodyLength(wikipedia);
     });
 
-    it("should get some value for invalid text", (): void => {
-      var text = "a b";
-      var metric = extractor.bodyLength(text);
-      expect(metric).to.have.property("name").and.equal("体長");
-      expect(metric).to.have.property("text");
-      expect(metric).to.have.property("value");
+    it("should get a 'm' metric", function(done: MochaDone): void {
+      this.timeout(5000);
+      m.getMetric("ペリカン").then(function(mi: metric.IMetricItem): void {
+        expect(mi).to.have.property("name").and.equal("体長");
+        expect(mi).to.have.property("text").and.equal("170センチメートル");
+        expect(mi).to.have.property("value").and.equal(1.7);
+        done();
+      });
+    });
+
+    it("should get some value for invalid text", function(done: MochaDone): void {
+      this.timeout(5000);
+      m.getMetric("JavaScript").then(function(mi: metric.IMetricItem): void {
+        expect(mi).to.have.property("name").and.equal("体長");
+        expect(mi).to.have.property("text");
+        expect(mi).to.have.property("value");
+        done();
+      });
     });
   });
 
+  /*
   describe("#bodyWeight", function(): void {
     it("should get a gram metric", (): void => {
       var text = "10g";
@@ -115,4 +126,5 @@ describe("Extractor", function(): void {
       expect(metric).to.have.property("value").and.above(1e30);
     });
   });
+  */
 });

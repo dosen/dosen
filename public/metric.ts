@@ -60,38 +60,31 @@ module metric {
     }
   }
 
-  class WpTextMatchMetric implements IMetric {
+  class WpTextMatchMetric extends WpTextMetric {
     public name: string;
     public defaultText: string;
     public defaultValue: number;
 
     public patterns: {re: RegExp; exp: number}[];
 
-    constructor(public wikipedia: wp.Wikipedia) {
-    }
-
-    public getMetric(name: string): ng.IPromise<IMetricItem> {
-      var patterns = this.patterns;
-      var metric = {
+    public processText(text: string): IMetricItem {
+      var mi = {
         name: this.name,
         text: this.defaultText,
         value: this.defaultValue
       };
 
-      return this.wikipedia
-      .getText(name)
-      .then(function(text: string): IMetricItem {
-        for (var i = 0; i < patterns.length; i++) {
-          var p = patterns[i];
-          var m = p.re.exec(text);
-          if (m != null) {
-            metric.text = m[0];
-            metric.value = parseInt(m[1], 10) * p.exp;
-            break;
-          }
+      for (var i = 0; i < this.patterns.length; i++) {
+        var p = this.patterns[i];
+        var m = p.re.exec(text);
+        if (m != null) {
+          mi.text = m[0];
+          mi.value = parseInt(m[1], 10) * p.exp;
+          break;
         }
-        return metric;
-      });
+      }
+
+      return mi;
     }
   }
 
@@ -140,37 +133,4 @@ module metric {
       return metric;
     }
   }
-
-/*
-  public recBodyLength(text: string): comp.IMetricItem {
-    var metric = this.bodyLength(text);
-    metric.name = "1/" + metric.name;
-    metric.value = 1 / metric.value;
-    return metric;
-  }
-
-  public recBodyWeight(text: string): comp.IMetricItem {
-    var metric = this.bodyWeight(text);
-    metric.name = "1/" + metric.name;
-    metric.value = 1 / metric.value;
-    return metric;
-  }
-
-  public nameLength(text: string): comp.IMetricItem {
-    var metric = {name: "名前長", text: "NOT FOUND(0)", value: 0};
-    var pattern = /(?:名称\s*=\s*)([ァ-ン]+)/;
-    var m = pattern.exec(text);
-    if (m != null) {
-      metric.text = m[1];
-      metric.value = m[1].length;
-    }
-    return metric;
-  }
-
-  public recNameLength(text: string): comp.IMetricItem {
-    var metric = this.nameLength(text);
-    metric.name = "1/" + metric.name;
-    metric.value = 1 / metric.value;
-    return metric;
-  }*/
 }
