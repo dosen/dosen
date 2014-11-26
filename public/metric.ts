@@ -34,10 +34,6 @@ module metric {
 
   class WpTextMetric implements IMetric {
     public name: string;
-    public defaultText: string;
-    public defaultValue: number;
-
-    public patterns: {re: RegExp; exp: number}[];
 
     constructor(public wikipedia: wp.Wikipedia) {
     }
@@ -47,13 +43,6 @@ module metric {
     }
 
     public getMetric(name: string): ng.IPromise<IMetricItem> {
-      var patterns = this.patterns;
-      var metric = {
-        name: this.name,
-        text: this.defaultText,
-        value: this.defaultValue
-      };
-
       return this.wikipedia
       .getText(name)
       .then(this.processText.bind(this));
