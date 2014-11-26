@@ -51,7 +51,7 @@ describe("metric", function(): void {
       m = new metric.BodyWeight(wikipedia);
     });
 
-    it("should get a 'm' metric", function(done: MochaDone): void {
+    it("should get a metric", function(done: MochaDone): void {
       this.timeout(5000);
       m.getMetric("ペリカン").then(function(mi: metric.IMetricItem): void {
       	try {
@@ -80,96 +80,39 @@ describe("metric", function(): void {
     });
   });
 
+  describe("NameLength", function(): void {
+    var m: metric.IMetric;
 
-  /*
-  describe("#bodyWeight", function(): void {
-    it("should get a gram metric", (): void => {
-      var text = "10g";
-      var metric = extractor.bodyWeight(text);
-      expect(metric).to.have.property("name").and.equal("体重");
-      expect(metric).to.have.property("text").and.equal("10g");
-      expect(metric).to.have.property("value").and.equal(10e-3);
+    beforeEach(function(): void {
+      m = new metric.NameLength(wikipedia);
     });
 
-    it("should get some value for invalid text", (): void => {
-      var text = "a b";
-      var metric = extractor.bodyWeight(text);
-      expect(metric).to.have.property("name").and.equal("体重");
-      expect(metric).to.have.property("text");
-      expect(metric).to.have.property("value");
-    });
-  });
-
-  describe("#recBodyLength", function(): void {
-    it("should get a 'm' metric", (): void => {
-      var text = "a 10m b";
-      var metric = extractor.recBodyLength(text);
-      expect(metric).to.have.property("name").and.equal("1/体長");
-      expect(metric).to.have.property("text").and.equal("10m");
-      expect(metric).to.have.property("value").and.equal(1 / 10);
+    it("should get a metric for valid text", function(done: MochaDone): void {
+      this.timeout(5000);
+      m.getMetric("ペリカン").then(function(mi: metric.IMetricItem): void {
+      	try {
+          expect(mi).to.have.property("name").and.equal("名前長");
+          expect(mi).to.have.property("text").and.equal("ペリカン");
+          expect(mi).to.have.property("value").and.equal(4);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
     });
 
-    it("should get some value for invalid text", (): void => {
-      var text = "a b";
-      var metric = extractor.recBodyLength(text);
-      expect(metric).to.have.property("name").and.equal("1/体長");
-      expect(metric).to.have.property("text");
-      expect(metric).to.have.property("value").and.above(1e30);
+    it("should get some value for invalid text", function(done: MochaDone): void {
+      this.timeout(5000);
+      m.getMetric("ストリング").then(function(mi: metric.IMetricItem): void {
+      	try {
+          expect(mi).to.have.property("name").and.equal("名前長");
+          expect(mi).to.have.property("text");
+          expect(mi).to.have.property("value").and.equal(0);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
     });
   });
-
-  describe("#recBodyWeight", function(): void {
-    it("should get a gram metric", (): void => {
-      var text = "10g";
-      var metric = extractor.recBodyWeight(text);
-      expect(metric).to.have.property("name").and.equal("1/体重");
-      expect(metric).to.have.property("text").and.equal("10g");
-      expect(metric).to.have.property("value").and.above(1 / 10);
-    });
-
-    it("should get some value for invalid text", (): void => {
-      var text = "a b";
-      var metric = extractor.recBodyWeight(text);
-      expect(metric).to.have.property("name").and.equal("1/体重");
-      expect(metric).to.have.property("text");
-      expect(metric).to.have.property("value").and.above(1e30);
-    });
-  });
-
-  describe("#nameLength", function(): void {
-    it("should get a metric for valid text", (): void => {
-      var text = "a\n名称 = ナマエ不要\nb";
-      var metric = extractor.nameLength(text);
-      expect(metric).to.have.property("name").and.equal("名前長");
-      expect(metric).to.have.property("text").and.equal("ナマエ");
-      expect(metric).to.have.property("value").and.equal(3);
-    });
-
-    it("should get some value for invalid text", (): void => {
-      var text = "a b";
-      var metric = extractor.nameLength(text);
-      expect(metric).to.have.property("name").and.equal("名前長");
-      expect(metric).to.have.property("text");
-      expect(metric).to.have.property("value").and.equal(0);
-    });
-  });
-
-  describe("#recNameLength", function(): void {
-    it("should get a metric for valid text", (): void => {
-      var text = "a\n名称 = ナマエ不要\nb";
-      var metric = extractor.recNameLength(text);
-      expect(metric).to.have.property("name").and.equal("1/名前長");
-      expect(metric).to.have.property("text").and.equal("ナマエ");
-      expect(metric).to.have.property("value").and.equal(1 / 3);
-    });
-
-    it("should get some value for invalid text", (): void => {
-      var text = "a b";
-      var metric = extractor.recNameLength(text);
-      expect(metric).to.have.property("name").and.equal("1/名前長");
-      expect(metric).to.have.property("text");
-      expect(metric).to.have.property("value").and.above(1e30);
-    });
-  });
-  */
 });
