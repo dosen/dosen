@@ -1,3 +1,4 @@
+var del = require('del');
 var foreach = require("gulp-foreach");
 var gulp = require("gulp");
 var karma = require('karma').server;
@@ -12,6 +13,14 @@ var paths = {
 
 gulp.task("default", ["typescript"]);
 
+gulp.task("clean", function(done) {
+  del([
+    "public/*.js",
+    "public/*.js.map",
+    "public/tests/**/*.js",
+    "public/tests/**/*.js.map"
+  ], done);
+});
 gulp.task("test", ["checkDependencies", "tslint", "karma"]);
 gulp.task("watch", function() {
   gulp.watch(paths.ts, ["typescript"]);

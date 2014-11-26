@@ -34,8 +34,8 @@ module ctrl {
         cpn.score = 0;
         opp.score = 0;
         for (var i = 0; i < 3; i++) {
-          var cmetric = cpn.metrics[i];
-          var ometric = opp.metrics[i];
+          var cmetric = cpn.metricitems[i];
+          var ometric = opp.metricitems[i];
           if (cmetric.value > ometric.value) {
             cpn.score += 1;
             cmetric.icon = "metric__icon--up";
