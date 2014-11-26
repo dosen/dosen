@@ -43,9 +43,12 @@ module metric {
     }
 
     public getMetric(name: string): ng.IPromise<IMetricItem> {
+      var that = this;
       return this.wikipedia
       .getText(name)
-      .then(this.processText.bind(this));
+      .then(function (text: string): IMetricItem {
+        return that.processText(text);
+      });
     }
   }
 
