@@ -133,6 +133,28 @@ module metric {
     }
   }
 
+  export class Backlinks implements IMetric {
+    public name = "バックリンク数";
+    public defaultText = "NOT FOUND";
+    public defaultValue = 0;
+
+    constructor(private wikipedia: wp.Wikipedia) {
+    }
+
+    public getMetric(name: string): ng.IPromise<IMetricItem> {
+      var metric = {
+        name: this.name,
+        text: this.defaultText,
+        value: this.defaultValue
+      };
+      return this.wikipedia.getBacklinks(name)
+      .then(function (backlinks: wp.IBacklink[]): IMetricItem {
+        metric.value = backlinks.length;
+        return metric;
+      });
+    }
+  }
+
   export class TaxonomyImage implements IMetric {
     public name = "画像";
     public defaultText = "NO IMAGE";
@@ -153,7 +175,6 @@ module metric {
         }
       })
       .then(function(url: string): IMetricItem {
-        console.log(url);
         return {
           name: "画像",
           text: url,
