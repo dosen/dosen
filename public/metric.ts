@@ -14,6 +14,13 @@ module metric {
     constructor(private wikipedia: wp.Wikipedia) {
     }
 
+    public create(name: string): IMetric {
+      switch (name) {
+        case "TaxonomyImage":
+          return new TaxonomyImage(this.wikipedia);
+      }
+    }
+
     public createRandom(index: number): IMetric {
       switch (index) {
         case 0:
