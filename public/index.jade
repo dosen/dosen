@@ -16,7 +16,7 @@ html(lang="ja" ng-app="dosenApp")
             input(type="text" ng-model="c.companion.name")
             input(type="submit")
         .competitor__image
-          img(src="//placehold.it/300x230")
+          img(ng-src="{{c.companion.image_url}}")
           p(ng-class="c.companion.finish_style") {{c.companion.finish_text}}
         .metric.competitor__metric(ng-repeat="metric in c.companion.metricitems")
           p.metric__icon(ng-class="metric.icon") &#10145;
@@ -28,7 +28,7 @@ html(lang="ja" ng-app="dosenApp")
             input(type="text" ng-model="c.opponent.name")
             input(type="submit")
         .competitor__image
-          img(src="//upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Elephant_near_ndutu.jpg/500px-Elephant_near_ndutu.jpg")
+          img(ng-src="{{c.opponent.image_url}}")
           p(ng-class="c.opponent.finish_style") {{c.opponent.finish_text}}
         .metric.competitor__metric(ng-repeat="metric in c.opponent.metricitems")
           p.metric__icon(ng-class="metric.icon") &#10145;

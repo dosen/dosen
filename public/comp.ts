@@ -22,6 +22,7 @@ module comp {
     public score: number;
     public finish_style: string;
     public finish_text: string;
+    public image_url = "//placehold.it/300x230";
 
     constructor(
       private $q: ng.IQService,
@@ -51,6 +52,11 @@ module comp {
           metricitem.text = m.text;
           metricitem.value = m.value;
         });
+      });
+      this.metric.create("TaxonomyImage")
+      .getMetric(this.name)
+      .then((m: metric.IMetricItem): void => {
+        this.image_url = m.text;
       });
       return this.$q.all(promises);
     }
