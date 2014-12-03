@@ -30,9 +30,9 @@ module comp {
       private wikipedia: wp.Wikipedia
     ) {
       this.metrics = [
-        this.metric.createRandom(0),
-        this.metric.createRandom(1),
-        this.metric.createRandom(2)
+        this.metric.createAt(0),
+        this.metric.createAt(1),
+        this.metric.createAt(2)
       ];
 
       this.metricitems = [
@@ -45,7 +45,7 @@ module comp {
     public update(): ng.IPromise<any[]> {
       var promises = [0, 1, 2].map((i: number): ng.IPromise<any> => {
         var metricitem = this.metricitems[i];
-        return this.metric.createRandom(i)
+        return this.metrics[i]
         .getMetric(this.name)
         .then(function(m: metric.IMetricItem): void {
           metricitem.name = m.name;

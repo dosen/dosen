@@ -11,7 +11,8 @@ module ctrl {
     constructor(
       private $q: ng.IQService,
       public competitor: comp.Factory,
-      public wikipedia: wp.Wikipedia
+      public wikipedia: wp.Wikipedia,
+      public metric: metric.Factory
     ) {
       this.companion = competitor.create();
       var op = this.opponent = competitor.create();

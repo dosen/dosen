@@ -11,25 +11,65 @@ module metric {
   }
 
   export class Factory {
+    private table = [
+      [
+        { name: "BodyLength", weight: 1 },
+        { name: "BodyWeight", weight: 1 },
+      ],
+      [
+        { name: "BodyLength", weight: 1 },
+        { name: "NameLength", weight: 1 }
+      ],
+      [
+        { name: "Backlinks", weight: 1 },
+        { name: "BodyWeight", weight: 1 },
+      ]
+    ];
+
+    private selected: string[] = [];
+
     constructor(private wikipedia: wp.Wikipedia) {
+      this.selectRandom();
     }
 
     public create(name: string): IMetric {
       switch (name) {
+        case "Backlinks":
+          return new Backlinks(this.wikipedia);
+        case "BodyLength":
+          return new BodyLength(this.wikipedia);
+        case "BodyWeight":
+          return new BodyWeight(this.wikipedia);
+        case "NameLength":
+          return new NameLength(this.wikipedia);
         case "TaxonomyImage":
           return new TaxonomyImage(this.wikipedia);
       }
     }
 
-    public createRandom(index: number): IMetric {
-      switch (index) {
-        case 0:
-          return new BodyLength(this.wikipedia);
-        case 1:
-          return new BodyWeight(this.wikipedia);
-        case 2:
-          return new NameLength(this.wikipedia);
+    public selectRandom(): void {
+      for (var i = 0; i < this.table.length; i++) {
+        var sum = 0;
+        var list = this.table[i];
+        for (var j = 0; j < list.length; j++) {
+          sum += list[j].weight;
+        }
+        this.selected[i] = list[list.length - 1].name;
+        var rand = Math.random();
+        console.log(rand);
+        var acc = 0;
+        for (j = 0; j < list.length; j++) {
+          acc += list[j].weight / sum;
+          if (rand < acc) {
+            this.selected[i] = list[j].name;
+            break;
+          }
+        }
       }
+    }
+
+    public createAt(index: number): IMetric {
+      return this.create(this.selected[index]);
     }
   }
 
