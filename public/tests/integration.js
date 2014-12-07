@@ -278,6 +278,66 @@ var metric;
     })();
     metric.TaxonomyImage = TaxonomyImage;
 })(metric || (metric = {}));
+/// <reference path="IMetricItem.ts"/>
+/// <reference path="WpTextMetric.ts"/>
+var metric;
+(function (_metric) {
+    "use strict";
+    var ZoologicalNameLength = (function (_super) {
+        __extends(ZoologicalNameLength, _super);
+        function ZoologicalNameLength() {
+            _super.apply(this, arguments);
+            this.name = "学名";
+            this.defaultText = "NOT FOUND";
+            this.defaultValue = 0;
+        }
+        ZoologicalNameLength.prototype.processText = function (text) {
+            var metric = {
+                name: this.name,
+                text: this.defaultText,
+                value: this.defaultValue
+            };
+            var m = /\{\{(?:Wikis|S)pecies\|([^}]*)\}\}/.exec(text);
+            if (m != null) {
+                metric.text = m[1];
+                metric.value = m[1].replace(/¥s/g, "").length;
+            }
+            return metric;
+        };
+        return ZoologicalNameLength;
+    })(_metric.WpTextMetric);
+    _metric.ZoologicalNameLength = ZoologicalNameLength;
+})(metric || (metric = {}));
+/// <reference path="IMetricItem.ts"/>
+/// <reference path="WpTextMetric.ts"/>
+var metric;
+(function (_metric) {
+    "use strict";
+    var FamilyNameLength = (function (_super) {
+        __extends(FamilyNameLength, _super);
+        function FamilyNameLength() {
+            _super.apply(this, arguments);
+            this.name = "科名長";
+            this.defaultText = "NOT FOUND";
+            this.defaultValue = 0;
+        }
+        FamilyNameLength.prototype.processText = function (text) {
+            var metric = {
+                name: this.name,
+                text: this.defaultText,
+                value: this.defaultValue
+            };
+            var m = /\|\s*科\s*=\s*(?:\[\[)?([ァ-ン]*)/.exec(text);
+            if (m != null) {
+                metric.text = m[1];
+                metric.value = m[1].length;
+            }
+            return metric;
+        };
+        return FamilyNameLength;
+    })(_metric.WpTextMetric);
+    _metric.FamilyNameLength = FamilyNameLength;
+})(metric || (metric = {}));
 /// <reference path="../wp.ts"/>
 /// <reference path="IMetric.ts"/>
 /// <reference path="Backlinks.ts"/>
@@ -285,6 +345,8 @@ var metric;
 /// <reference path="BodyWeight.ts"/>
 /// <reference path="NameLength.ts"/>
 /// <reference path="TaxonomyImage.ts"/>
+/// <reference path="ZoologicalNameLength.ts"/>
+/// <reference path="FamilyNameLength.ts"/>
 var metric;
 (function (metric) {
     "use strict";
@@ -304,6 +366,10 @@ var metric;
                     return new metric.NameLength(this.wikipedia);
                 case "TaxonomyImage":
                     return new metric.TaxonomyImage(this.wikipedia);
+                case "ZoologicalNameLength":
+                    return new metric.ZoologicalNameLength(this.wikipedia);
+                case "FamilyNameLength":
+                    return new metric.FamilyNameLength(this.wikipedia);
             }
         };
         Factory.prototype.createAll = function (names) {
@@ -392,6 +458,8 @@ var ctrl;
                 [
                     { name: "Backlinks", weight: 1 },
                     { name: "BodyWeight", weight: 1 },
+                    { name: "ZoologicalNameLength", weight: 1 },
+                    { name: "FamilyNameLength", weight: 1 },
                 ]
             ];
         }
@@ -501,6 +569,92 @@ var ctrl;
 /// <reference path="metric.ts"/>
 /// <reference path="wp.ts"/>
 angular.module("dosenApp", []).controller("CompetitionCtrl", ctrl.CompetitionCtrl).service("competitor", comp.Factory).service("metric", metric.Factory).service("wikipedia", wp.Wikipedia);
+/// <reference path="../test_helper.d.ts"/>
+describe("metric.FamilyNameLength", function () {
+    var expect = chai.expect;
+    var m;
+    beforeEach(function () {
+        var $injector = angular.injector(["ng", "dosenApp"]);
+        var wikipedia = $injector.get("wikipedia");
+        m = new metric.FamilyNameLength(wikipedia);
+    });
+    it("should get 'Wikispecies' name", function (done) {
+        this.timeout(5000);
+        m.getMetric("ヒツジ").then(function (mi) {
+            try {
+                expect(mi).to.have.property("name").and.equal("科名長");
+                expect(mi).to.have.property("text").and.equal("ウシ");
+                expect(mi).to.have.property("value").and.equal(2);
+                done();
+            }
+            catch (e) {
+                done(e);
+            }
+        });
+    });
+    it("should get some value for invalid text", function (done) {
+        this.timeout(5000);
+        m.getMetric("ストリング").then(function (mi) {
+            try {
+                expect(mi).to.have.property("value").and.equal(0);
+                done();
+            }
+            catch (e) {
+                done(e);
+            }
+        });
+    });
+});
+/// <reference path="../test_helper.d.ts"/>
+describe("metric.ZoologicalNameLength", function () {
+    var expect = chai.expect;
+    var m;
+    beforeEach(function () {
+        var $injector = angular.injector(["ng", "dosenApp"]);
+        var wikipedia = $injector.get("wikipedia");
+        m = new metric.ZoologicalNameLength(wikipedia);
+    });
+    it("should get 'Wikispecies' name", function (done) {
+        this.timeout(5000);
+        m.getMetric("ペリカン").then(function (mi) {
+            try {
+                expect(mi).to.have.property("name").and.equal("学名");
+                expect(mi).to.have.property("text").and.equal("Pelecanidae");
+                expect(mi).to.have.property("value").and.equal(11);
+                done();
+            }
+            catch (e) {
+                done(e);
+            }
+        });
+    });
+    it("should get 'Species' name", function (done) {
+        this.timeout(5000);
+        m.getMetric("ヒツジ").then(function (mi) {
+            try {
+                expect(mi).to.have.property("name").and.equal("学名");
+                expect(mi).to.have.property("text").and.equal("Ovis aries");
+                expect(mi).to.have.property("value").and.equal(10);
+                done();
+            }
+            catch (e) {
+                done(e);
+            }
+        });
+    });
+    it("should get some value for invalid text", function (done) {
+        this.timeout(5000);
+        m.getMetric("ストリング").then(function (mi) {
+            try {
+                expect(mi).to.have.property("value").and.equal(0);
+                done();
+            }
+            catch (e) {
+                done(e);
+            }
+        });
+    });
+});
 /// <reference path="../test_helper.d.ts"/>
 describe("metric", function () {
     var expect = chai.expect;

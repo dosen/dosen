@@ -5,6 +5,8 @@
 /// <reference path="BodyWeight.ts"/>
 /// <reference path="NameLength.ts"/>
 /// <reference path="TaxonomyImage.ts"/>
+/// <reference path="ZoologicalNameLength.ts"/>
+/// <reference path="FamilyNameLength.ts"/>
 module metric {
   "use strict";
 
@@ -24,6 +26,10 @@ module metric {
           return new NameLength(this.wikipedia);
         case "TaxonomyImage":
           return new TaxonomyImage(this.wikipedia);
+        case "ZoologicalNameLength":
+          return new ZoologicalNameLength(this.wikipedia);
+        case "FamilyNameLength":
+          return new FamilyNameLength(this.wikipedia);
       }
     }
 
