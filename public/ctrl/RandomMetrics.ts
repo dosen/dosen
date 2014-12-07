@@ -14,6 +14,8 @@ module ctrl {
       [
         { name: "Backlinks", weight: 1 },
         { name: "BodyWeight", weight: 1 },
+        { name: "ZoologicalNameLength", weight: 1 },
+        { name: "FamilyNameLength", weight: 1 },
       ]
     ];
 

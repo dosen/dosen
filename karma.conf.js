@@ -9,7 +9,7 @@ module.exports = function(config) {
     ],
     reporters: ['mocha'],
     autoWatch: true,
-    browsers: ['Chrome'],
+    browsers: ['Chrome', 'PhantomJS'],
     client: {
       mocha: {
         reporter: 'html'
