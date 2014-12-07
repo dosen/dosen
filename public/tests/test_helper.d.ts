@@ -4,3 +4,4 @@
 /// <reference path="../comp.ts"/>
 /// <reference path="../metric.ts"/>
 /// <reference path="../wp.ts"/>
+/// <reference path="../dosenApp.ts"/>

@@ -70,6 +70,7 @@ gulp.task("ts-tests", function() {
       noImplicitAny: true,
       safe: true,
       outDir: "public/",
+      out: "tests/tests.js",
       sourcemap: true
     }))
     .pipe(gulp.dest("public/"));

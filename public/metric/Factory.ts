@@ -1,3 +1,10 @@
+/// <reference path="../wp.ts"/>
+/// <reference path="IMetric.ts"/>
+/// <reference path="Backlinks.ts"/>
+/// <reference path="BodyLength.ts"/>
+/// <reference path="BodyWeight.ts"/>
+/// <reference path="NameLength.ts"/>
+/// <reference path="TaxonomyImage.ts"/>
 module metric {
   "use strict";
 
