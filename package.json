@@ -4,11 +4,12 @@
   "description": "The game comparing metrics of a Wikipedia page, largely depending on the client side programing",
   "main": "index.js",
   "scripts": {
-    "postinstall": "bower install && npm run compile",
+    "postinstall": "bower install && npm run compile && npm run compile-tests",
     "start": "harp server",
     "test": "gulp test && harp compile",
     "tsd": "tsd reinstall",
     "compile": "tsc --sourceMap --out public/dosenApp.js public/*.ts",
+    "compile-tests": "tsc --sourceMap --out public/tests/integration.js public/tests/integration/*.ts",
     "watch": "gulp watch"
   },
   "repository": {
