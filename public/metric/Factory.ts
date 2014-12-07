@@ -1,0 +1,38 @@
+/// <reference path="../wp.ts"/>
+/// <reference path="IMetric.ts"/>
+/// <reference path="Backlinks.ts"/>
+/// <reference path="BodyLength.ts"/>
+/// <reference path="BodyWeight.ts"/>
+/// <reference path="NameLength.ts"/>
+/// <reference path="TaxonomyImage.ts"/>
+module metric {
+  "use strict";
+
+  export class Factory {
+    constructor(private wikipedia: wp.Wikipedia) {
+    }
+
+    public create(name: string): IMetric {
+      switch (name) {
+        case "Backlinks":
+          return new Backlinks(this.wikipedia);
+        case "BodyLength":
+          return new BodyLength(this.wikipedia);
+        case "BodyWeight":
+          return new BodyWeight(this.wikipedia);
+        case "NameLength":
+          return new NameLength(this.wikipedia);
+        case "TaxonomyImage":
+          return new TaxonomyImage(this.wikipedia);
+      }
+    }
+
+    public createAll(names: string[]): IMetric[] {
+      var array: IMetric[] = [];
+      for (var i = 0; i < names.length; i++) {
+        array.push(this.create(names[i]));
+      }
+      return array;
+    }
+  }
+}

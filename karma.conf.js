@@ -3,8 +3,7 @@ module.exports = function(config) {
     frameworks: ['mocha', 'chai'],
     files: [
       'public/bower_components/angular/angular.js',
-      'public/*.js',
-      'public/tests/integration/*.js',
+      'public/tests/integration.js',
       {pattern: 'public/*.js.map', included: false},
       {pattern: 'public/*.ts', included: false}
     ],

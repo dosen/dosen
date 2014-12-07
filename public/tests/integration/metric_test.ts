@@ -116,6 +116,28 @@ describe("metric", function(): void {
     });
   });
 
+  describe("Backlinks", function(): void {
+    var m: metric.IMetric;
+
+    beforeEach(function(): void {
+      m = new metric.Backlinks(wikipedia);
+    });
+
+    it("should get # of backlinks", function(done: MochaDone): void {
+      this.timeout(5000);
+      m.getMetric("ペリカン").then(function(mi: metric.IMetricItem): void {
+        try {
+          expect(mi).to.have.property("name").and.equal("バックリンク数");
+          expect(mi).to.have.property("text");
+          expect(mi).to.have.property("value").and.above(0);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
+    });
+  });
+
   describe("TaxonomyImage", function(): void {
     var m: metric.IMetric;
 
