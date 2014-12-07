@@ -4,12 +4,26 @@ html
     title Mocha
     meta(http-equiv="Content-Type" content="text/html; charset=UTF-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
-    link(rel="stylesheet" href="mocha.css")
-  body
+    link(rel="stylesheet" href="../bower_components/mocha/mocha.css")
+    link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Press+Start+2P")
+    link(rel="stylesheet" href="index.css")
+  body(style="background-color: #226100")
+    h1.name dosen
+    p the DObutsu SENto program
     #mocha
     script(src="../bower_components/mocha/mocha.js")
     script(src="../bower_components/chai/chai.js")
     script(src="../bower_components/angular/angular.js")
-    script mocha.setup('bdd')
+    script.
+      mocha.setup('bdd')
     script(src="../tests/integration.js")
-    script mocha.run();
+    script.
+      setTimeout(function(){
+      var runner = mocha.run();
+      runner.on("test end", function(test) {
+       console.log(this.stats.passes, this.total);
+      });
+      runner.on("end", function(test) {
+        document.getElementById("#mocha").innerHTML = 'Ready to Launch';
+      });
+      }, 1000);
