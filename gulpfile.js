@@ -8,7 +8,7 @@ var typescript = require("gulp-tsc");
 
 var paths = {
   ts: "public/*.ts",
-  tsTests: "public/tests/**/*.ts"
+  tsTests: "public/tests/integration/*.ts"
 }
 
 gulp.task("default", ["typescript"]);
@@ -17,8 +17,8 @@ gulp.task("clean", function(done) {
   del([
     "public/*.js",
     "public/*.js.map",
-    "public/tests/**/*.js",
-    "public/tests/**/*.js.map"
+    "public/tests/*.js",
+    "public/tests/*.js.map"
   ], done);
 });
 gulp.task("test", ["checkDependencies", "tslint", "karma"]);
@@ -70,7 +70,7 @@ gulp.task("ts-tests", function() {
       noImplicitAny: true,
       safe: true,
       outDir: "public/",
-      out: "tests/tests.js",
+      out: "tests/integration.js",
       sourcemap: true
     }))
     .pipe(gulp.dest("public/"));

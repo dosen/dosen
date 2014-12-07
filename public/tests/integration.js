@@ -700,4 +700,4 @@ describe("wp.Wikipedia", function () {
         });
     });
 });
-//# sourceMappingURL=tests.js.map
+//# sourceMappingURL=integration.js.map
