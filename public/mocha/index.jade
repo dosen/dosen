@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    title Mocha
+    meta(http-equiv="Content-Type" content="text/html; charset=UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet" href="mocha.css")
+  body
+    #mocha
+    script(src="../bower_components/mocha/mocha.js")
+    script(src="../bower_components/chai/chai.js")
+    script(src="../bower_components/angular/angular.js")
+    script mocha.setup('bdd')
+    script(src="../tests/integration.js")
+    script mocha.run();
