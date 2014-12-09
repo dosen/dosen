@@ -698,6 +698,82 @@ describe("metric.Backlinks", function () {
     });
 });
 /// <reference path="../test_helper.d.ts"/>
+describe("metric.BodyLength", function () {
+    var expect = chai.expect;
+    var m;
+    beforeEach(function () {
+        var $injector = angular.injector(["ng", "dosenApp"]);
+        var wikipedia = $injector.get("wikipedia");
+        m = new metric.BodyLength(wikipedia);
+    });
+    it("should get a 'm' metric", function (done) {
+        this.timeout(5000);
+        m.getMetric("ペリカン").then(function (mi) {
+            try {
+                expect(mi).to.have.property("name").and.equal("体長");
+                expect(mi).to.have.property("text").and.equal("170センチメートル");
+                expect(mi).to.have.property("value").and.equal(1.7);
+                done();
+            }
+            catch (e) {
+                done(e);
+            }
+        });
+    });
+    it("should get some value for invalid text", function (done) {
+        this.timeout(5000);
+        m.getMetric("ストリング").then(function (mi) {
+            try {
+                expect(mi).to.have.property("name").and.equal("体長");
+                expect(mi).to.have.property("text");
+                expect(mi).to.have.property("value");
+                done();
+            }
+            catch (e) {
+                done(e);
+            }
+        });
+    });
+});
+/// <reference path="../test_helper.d.ts"/>
+describe("metric.BodyWeight", function () {
+    var expect = chai.expect;
+    var m;
+    beforeEach(function () {
+        var $injector = angular.injector(["ng", "dosenApp"]);
+        var wikipedia = $injector.get("wikipedia");
+        m = new metric.BodyWeight(wikipedia);
+    });
+    it("should get a metric", function (done) {
+        this.timeout(5000);
+        m.getMetric("ペリカン").then(function (mi) {
+            try {
+                expect(mi).to.have.property("name").and.equal("体重");
+                expect(mi).to.have.property("text").and.equal("11キログラム");
+                expect(mi).to.have.property("value").and.equal(11);
+                done();
+            }
+            catch (e) {
+                done(e);
+            }
+        });
+    });
+    it("should get some value for invalid text", function (done) {
+        this.timeout(5000);
+        m.getMetric("ストリング").then(function (mi) {
+            try {
+                expect(mi).to.have.property("name").and.equal("体重");
+                expect(mi).to.have.property("text");
+                expect(mi).to.have.property("value").and.equal(0);
+                done();
+            }
+            catch (e) {
+                done(e);
+            }
+        });
+    });
+});
+/// <reference path="../test_helper.d.ts"/>
 describe("metric.FamilyNameLength", function () {
     var expect = chai.expect;
     var m;
@@ -725,6 +801,66 @@ describe("metric.FamilyNameLength", function () {
         m.getMetric("ストリング").then(function (mi) {
             try {
                 expect(mi).to.have.property("value").and.equal(0);
+                done();
+            }
+            catch (e) {
+                done(e);
+            }
+        });
+    });
+});
+/// <reference path="../test_helper.d.ts"/>
+describe("metric.NameLength", function () {
+    var expect = chai.expect;
+    var m;
+    beforeEach(function () {
+        var $injector = angular.injector(["ng", "dosenApp"]);
+        var wikipedia = $injector.get("wikipedia");
+        m = new metric.NameLength(wikipedia);
+    });
+    it("should get a metric for valid text", function (done) {
+        this.timeout(5000);
+        m.getMetric("ペリカン").then(function (mi) {
+            try {
+                expect(mi).to.have.property("name").and.equal("名前長");
+                expect(mi).to.have.property("text").and.equal("ペリカン");
+                expect(mi).to.have.property("value").and.equal(4);
+                done();
+            }
+            catch (e) {
+                done(e);
+            }
+        });
+    });
+    it("should get some value for invalid text", function (done) {
+        this.timeout(5000);
+        m.getMetric("ストリング").then(function (mi) {
+            try {
+                expect(mi).to.have.property("name").and.equal("名前長");
+                expect(mi).to.have.property("text");
+                expect(mi).to.have.property("value").and.equal(0);
+                done();
+            }
+            catch (e) {
+                done(e);
+            }
+        });
+    });
+});
+/// <reference path="../test_helper.d.ts"/>
+describe("metric.TaxonomyImage", function () {
+    var expect = chai.expect;
+    var m;
+    beforeEach(function () {
+        var $injector = angular.injector(["ng", "dosenApp"]);
+        var wikipedia = $injector.get("wikipedia");
+        m = new metric.TaxonomyImage(wikipedia);
+    });
+    it("should get an image url", function (done) {
+        this.timeout(5000);
+        m.getMetric("ペリカン").then(function (mi) {
+            try {
+                expect(mi).to.have.property("text").and.to.match(/^http/);
                 done();
             }
             catch (e) {
@@ -780,135 +916,6 @@ describe("metric.ZoologicalNameLength", function () {
             catch (e) {
                 done(e);
             }
-        });
-    });
-});
-/// <reference path="../test_helper.d.ts"/>
-describe("metric", function () {
-    var expect = chai.expect;
-    var wikipedia;
-    before(function () {
-        var $injector = angular.injector(["ng", "dosenApp"]);
-        wikipedia = $injector.get("wikipedia");
-    });
-    describe("BodyLength", function () {
-        var m;
-        beforeEach(function () {
-            m = new metric.BodyLength(wikipedia);
-        });
-        it("should get a 'm' metric", function (done) {
-            this.timeout(5000);
-            m.getMetric("ペリカン").then(function (mi) {
-                try {
-                    expect(mi).to.have.property("name").and.equal("体長");
-                    expect(mi).to.have.property("text").and.equal("170センチメートル");
-                    expect(mi).to.have.property("value").and.equal(1.7);
-                    done();
-                }
-                catch (e) {
-                    done(e);
-                }
-            });
-        });
-        it("should get some value for invalid text", function (done) {
-            this.timeout(5000);
-            m.getMetric("ストリング").then(function (mi) {
-                try {
-                    expect(mi).to.have.property("name").and.equal("体長");
-                    expect(mi).to.have.property("text");
-                    expect(mi).to.have.property("value");
-                    done();
-                }
-                catch (e) {
-                    done(e);
-                }
-            });
-        });
-    });
-    describe("BodyWeight", function () {
-        var m;
-        beforeEach(function () {
-            m = new metric.BodyWeight(wikipedia);
-        });
-        it("should get a metric", function (done) {
-            this.timeout(5000);
-            m.getMetric("ペリカン").then(function (mi) {
-                try {
-                    expect(mi).to.have.property("name").and.equal("体重");
-                    expect(mi).to.have.property("text").and.equal("11キログラム");
-                    expect(mi).to.have.property("value").and.equal(11);
-                    done();
-                }
-                catch (e) {
-                    done(e);
-                }
-            });
-        });
-        it("should get some value for invalid text", function (done) {
-            this.timeout(5000);
-            m.getMetric("ストリング").then(function (mi) {
-                try {
-                    expect(mi).to.have.property("name").and.equal("体重");
-                    expect(mi).to.have.property("text");
-                    expect(mi).to.have.property("value").and.equal(0);
-                    done();
-                }
-                catch (e) {
-                    done(e);
-                }
-            });
-        });
-    });
-    describe("NameLength", function () {
-        var m;
-        beforeEach(function () {
-            m = new metric.NameLength(wikipedia);
-        });
-        it("should get a metric for valid text", function (done) {
-            this.timeout(5000);
-            m.getMetric("ペリカン").then(function (mi) {
-                try {
-                    expect(mi).to.have.property("name").and.equal("名前長");
-                    expect(mi).to.have.property("text").and.equal("ペリカン");
-                    expect(mi).to.have.property("value").and.equal(4);
-                    done();
-                }
-                catch (e) {
-                    done(e);
-                }
-            });
-        });
-        it("should get some value for invalid text", function (done) {
-            this.timeout(5000);
-            m.getMetric("ストリング").then(function (mi) {
-                try {
-                    expect(mi).to.have.property("name").and.equal("名前長");
-                    expect(mi).to.have.property("text");
-                    expect(mi).to.have.property("value").and.equal(0);
-                    done();
-                }
-                catch (e) {
-                    done(e);
-                }
-            });
-        });
-    });
-    describe("TaxonomyImage", function () {
-        var m;
-        beforeEach(function () {
-            m = new metric.TaxonomyImage(wikipedia);
-        });
-        it("should get an image url", function (done) {
-            this.timeout(5000);
-            m.getMetric("ペリカン").then(function (mi) {
-                try {
-                    expect(mi).to.have.property("text").and.to.match(/^http/);
-                    done();
-                }
-                catch (e) {
-                    done(e);
-                }
-            });
         });
     });
 });
