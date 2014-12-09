@@ -9,13 +9,27 @@ describe("metric.FamilyNameLength", function(): void {
     m = new metric.FamilyNameLength(wikipedia);
   });
 
-  it("should get 'Wikispecies' name", function(done: MochaDone): void {
+  it("should get 'Taxo' name", function(done: MochaDone): void {
     this.timeout(5000);
     m.getMetric("ヒツジ").then(function(mi: metric.IMetricItem): void {
     	try {
         expect(mi).to.have.property("name").and.equal("科名長");
         expect(mi).to.have.property("text").and.equal("ウシ");
         expect(mi).to.have.property("value").and.equal(2);
+        done();
+      } catch (e) {
+        done(e);
+      }
+    });
+  });
+
+  it("should get 'Taxo' name with decoration", function(done: MochaDone): void {
+    this.timeout(5000);
+    m.getMetric("ハネジネズミ").then(function(mi: metric.IMetricItem): void {
+    	try {
+        expect(mi).to.have.property("name").and.equal("科名長");
+        expect(mi).to.have.property("text").and.equal("ハネジネズミ");
+        expect(mi).to.have.property("value").and.equal(6);
         done();
       } catch (e) {
         done(e);

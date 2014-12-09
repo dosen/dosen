@@ -37,6 +37,48 @@ describe("metric.ZoologicalNameLength", function(): void {
     });
   });
 
+  it("should get 'Taxo' name", function(done: MochaDone): void {
+    this.timeout(5000);
+    m.getMetric("ハネジネズミ").then(function(mi: metric.IMetricItem): void {
+    	try {
+        expect(mi).to.have.property("name").and.equal("学名");
+        expect(mi).to.have.property("text").and.equal("Macroscelidea");
+        expect(mi).to.have.property("value").and.equal(13);
+        done();
+      } catch (e) {
+        done(e);
+      }
+    });
+  });
+
+  it("should get 'Taxo' name with decoration", function(done: MochaDone): void {
+    this.timeout(5000);
+    m.getMetric("カササギ").then(function(mi: metric.IMetricItem): void {
+    	try {
+        expect(mi).to.have.property("name").and.equal("学名");
+        expect(mi).to.have.property("text").and.equal("Pica pica");
+        expect(mi).to.have.property("value").and.equal(9);
+        done();
+      } catch (e) {
+        done(e);
+      }
+    });
+  });
+
+  it("should get 'Taxo' name with interwiki", function(done: MochaDone): void {
+    this.timeout(5000);
+    m.getMetric("レインボーフィッシュ").then(function(mi: metric.IMetricItem): void {
+    	try {
+        expect(mi).to.have.property("name").and.equal("学名");
+        expect(mi).to.have.property("text").and.equal("Melanotaeniidae");
+        expect(mi).to.have.property("value").and.equal(15);
+        done();
+      } catch (e) {
+        done(e);
+      }
+    });
+  });
+
   it("should get some value for invalid text", function(done: MochaDone): void {
     this.timeout(5000);
     m.getMetric("ストリング").then(function(mi: metric.IMetricItem): void {
