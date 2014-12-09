@@ -30,20 +30,6 @@ module wp {
       return this._getTransclusions.get(title);
     }
 
-    public getImage(title: string): ng.IPromise<string> {
-      var url = this.endpoint + "?format=json&callback=JSON_CALLBACK&continue="
-      + "&action=query&prop=imageinfo&iiprop=url";
-
-      console.debug("getting from Wikipadia the image of " + title);
-      return this.$http
-      .jsonp(url, { params: { titles: title } })
-      .then(function(arg: IPromisedResultArg): string {
-        var imageinfo = arg.data["query"]["pages"]["-1"]["imageinfo"];
-        console.debug("retrieved the image of " + title);
-        return imageinfo[0]["url"];
-      });
-    }
-
     public getThumb(title: string): ng.IPromise<string> {
       return this._getThumb.get(title);
     }

@@ -145,15 +145,6 @@ var wp;
         Wikipedia.prototype.getTransclusions = function (title) {
             return this._getTransclusions.get(title);
         };
-        Wikipedia.prototype.getImage = function (title) {
-            var url = this.endpoint + "?format=json&callback=JSON_CALLBACK&continue=" + "&action=query&prop=imageinfo&iiprop=url";
-            console.debug("getting from Wikipadia the image of " + title);
-            return this.$http.jsonp(url, { params: { titles: title } }).then(function (arg) {
-                var imageinfo = arg.data["query"]["pages"]["-1"]["imageinfo"];
-                console.debug("retrieved the image of " + title);
-                return imageinfo[0]["url"];
-            });
-        };
         Wikipedia.prototype.getThumb = function (title) {
             return this._getThumb.get(title);
         };
