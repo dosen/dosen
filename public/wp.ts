@@ -1,4 +1,5 @@
 /// <reference path="typings/angularjs/angular.d.ts" />
+/// <reference path="wp/GetText.ts" />
 /* tslint:disable:no-string-literal */
 module wp {
   "use strict";
@@ -10,25 +11,7 @@ module wp {
     }
 
     public getText(title: string): ng.IPromise<string> {
-      var $q = this.$q;
-      var url = this.endpoint + "?format=json&callback=JSON_CALLBACK"
-        + "&action=query&prop=revisions&rvprop=content&redirects";
-
-      console.debug("getting from Wikipadia the text of " + title);
-      return this.$http
-        .jsonp(url, { params: { titles: title } })
-        .then(function(arg: IPromisedResultArg): ng.IPromise<string> {
-          var pages = arg.data["query"]["pages"];
-          for (var k in pages) {
-            if (pages.hasOwnProperty(k)) {
-              var text = pages[k]["revisions"][0]["*"];
-              console.debug("retrieved the text of " + title);
-              var deferred = $q.defer();
-              deferred.resolve(text);
-              return deferred.promise;
-            }
-          }
-        });
+      return (new GetText(this.$http)).get(title);
     }
 
     public getBacklinks(title: string): ng.IPromise<IBacklink[]> {

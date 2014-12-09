@@ -1,4 +1,32 @@
+/// <reference path="../typings/angularjs/angular.d.ts" />
+/* tslint:disable:no-string-literal */
+var wp;
+(function (wp) {
+    "use strict";
+    var GetText = (function () {
+        function GetText($http) {
+            this.$http = $http;
+            this.endpoint = "//ja.wikipedia.org/w/api.php";
+        }
+        GetText.prototype.get = function (title) {
+            var url = this.endpoint + "?format=json&callback=JSON_CALLBACK" + "&action=query&prop=revisions&rvprop=content&redirects";
+            console.debug("getting from Wikipadia the text of " + title);
+            return this.$http.jsonp(url, { params: { titles: title } }).then(function (arg) {
+                var pages = arg.data["query"]["pages"];
+                for (var k in pages) {
+                    if (pages.hasOwnProperty(k)) {
+                        console.debug("retrieved the text of " + title);
+                        return pages[k]["revisions"][0]["*"];
+                    }
+                }
+            });
+        };
+        return GetText;
+    })();
+    wp.GetText = GetText;
+})(wp || (wp = {}));
 /// <reference path="typings/angularjs/angular.d.ts" />
+/// <reference path="wp/GetText.ts" />
 /* tslint:disable:no-string-literal */
 var wp;
 (function (wp) {
@@ -10,21 +38,7 @@ var wp;
             this.endpoint = "//ja.wikipedia.org/w/api.php";
         }
         Wikipedia.prototype.getText = function (title) {
-            var $q = this.$q;
-            var url = this.endpoint + "?format=json&callback=JSON_CALLBACK" + "&action=query&prop=revisions&rvprop=content&redirects";
-            console.debug("getting from Wikipadia the text of " + title);
-            return this.$http.jsonp(url, { params: { titles: title } }).then(function (arg) {
-                var pages = arg.data["query"]["pages"];
-                for (var k in pages) {
-                    if (pages.hasOwnProperty(k)) {
-                        var text = pages[k]["revisions"][0]["*"];
-                        console.debug("retrieved the text of " + title);
-                        var deferred = $q.defer();
-                        deferred.resolve(text);
-                        return deferred.promise;
-                    }
-                }
-            });
+            return (new wp.GetText(this.$http)).get(title);
         };
         Wikipedia.prototype.getBacklinks = function (title) {
             var $q = this.$q;
@@ -272,7 +286,7 @@ var metric;
             return this.wikipedia.getText(name).then(function (text) {
                 var m = /(?:画像)[^\[]*\[\[([^|]*)\|/.exec(text);
                 if (m != null) {
-                    return wikipedia.getImage(m[1]);
+                    return wikipedia.getThumb(m[1]);
                 }
                 else {
                     return null;
