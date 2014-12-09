@@ -98,6 +98,8 @@ var metric;
                 value: this.defaultValue
             };
             return this.wikipedia.getBacklinks(name).then(function (backlinks) {
+                console.log(backlinks);
+                metric.text = backlinks.length.toString();
                 metric.value = backlinks.length;
                 return metric;
             });
@@ -230,7 +232,7 @@ var metric;
                 text: this.defaultText,
                 value: this.defaultValue
             };
-            var m = /(?:名称\s*=\s*)([ァ-ン]+)/.exec(text);
+            var m = /(?:名称\s*=\s*)([ァ-ンー]+)/.exec(text);
             if (m != null) {
                 metric.text = m[1];
                 metric.value = m[1].length;
@@ -327,7 +329,7 @@ var metric;
                 text: this.defaultText,
                 value: this.defaultValue
             };
-            var m = /\|\s*科\s*=\s*(?:\[\[)?([ァ-ン]*)/.exec(text);
+            var m = /\|\s*科\s*=\s*(?:\[\[)?([ァ-ンー]*)/.exec(text);
             if (m != null) {
                 metric.text = m[1];
                 metric.value = m[1].length;
@@ -393,13 +395,19 @@ var comp;
             this.metric = metric;
             this.wikipedia = wikipedia;
             this.image_url = "//placehold.it/300x230";
-            this.metrics = this.metric.createAll(metricNames);
             this.metricitems = [
-                { name: this.metrics[0].name, text: "", value: 0, icon: "" },
-                { name: this.metrics[1].name, text: "", value: 0, icon: "" },
-                { name: this.metrics[2].name, text: "", value: 0, icon: "" }
+                { name: "", text: "", value: 0, icon: "" },
+                { name: "", text: "", value: 0, icon: "" },
+                { name: "", text: "", value: 0, icon: "" }
             ];
+            this.setMetrics(metricNames);
         }
+        Competitor.prototype.setMetrics = function (metricNames) {
+            this.metrics = this.metric.createAll(metricNames);
+            for (var i = 0; i < 3; i++) {
+                this.metricitems[i].name = this.metrics[i].name;
+            }
+        };
         Competitor.prototype.update = function () {
             var _this = this;
             var promises = [0, 1, 2].map(function (i) {
@@ -512,6 +520,12 @@ var ctrl;
                 op.name = pages[keys[i]]["title"];
             });
         }
+        CompetitionCtrl.prototype.shuffleMetrics = function () {
+            var rm = new ctrl.RandomMetrics();
+            var metricNames = rm.selectAll();
+            this.companion.setMetrics(metricNames);
+            this.opponent.setMetrics(metricNames);
+        };
         CompetitionCtrl.prototype.update = function () {
             var cpn = this.companion;
             var opp = this.opponent;
@@ -569,6 +583,30 @@ var ctrl;
 /// <reference path="metric.ts"/>
 /// <reference path="wp.ts"/>
 angular.module("dosenApp", []).controller("CompetitionCtrl", ctrl.CompetitionCtrl).service("competitor", comp.Factory).service("metric", metric.Factory).service("wikipedia", wp.Wikipedia);
+/// <reference path="../test_helper.d.ts"/>
+describe("metric.Backlinks", function () {
+    var m;
+    var expect = chai.expect;
+    beforeEach(function () {
+        var $injector = angular.injector(["ng", "dosenApp"]);
+        var wikipedia = $injector.get("wikipedia");
+        m = new metric.Backlinks(wikipedia);
+    });
+    it("should get # of backlinks", function (done) {
+        this.timeout(5000);
+        m.getMetric("ペリカン").then(function (mi) {
+            try {
+                expect(mi).to.have.property("name").and.equal("バックリンク数");
+                expect(mi).to.have.property("text").and.not.equal("NOT FOUND");
+                expect(mi).to.have.property("value").and.above(1);
+                done();
+            }
+            catch (e) {
+                done(e);
+            }
+        });
+    });
+});
 /// <reference path="../test_helper.d.ts"/>
 describe("metric.FamilyNameLength", function () {
     var expect = chai.expect;
@@ -757,26 +795,6 @@ describe("metric", function () {
                     expect(mi).to.have.property("name").and.equal("名前長");
                     expect(mi).to.have.property("text");
                     expect(mi).to.have.property("value").and.equal(0);
-                    done();
-                }
-                catch (e) {
-                    done(e);
-                }
-            });
-        });
-    });
-    describe("Backlinks", function () {
-        var m;
-        beforeEach(function () {
-            m = new metric.Backlinks(wikipedia);
-        });
-        it("should get # of backlinks", function (done) {
-            this.timeout(5000);
-            m.getMetric("ペリカン").then(function (mi) {
-                try {
-                    expect(mi).to.have.property("name").and.equal("バックリンク数");
-                    expect(mi).to.have.property("text");
-                    expect(mi).to.have.property("value").and.above(0);
                     done();
                 }
                 catch (e) {
