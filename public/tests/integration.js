@@ -964,6 +964,28 @@ describe("wp.Wikipedia#getThumb", function () {
     });
 });
 /// <reference path="../test_helper.d.ts"/>
+describe("wp.Wikipedia#getTransclusions", function () {
+    var expect = chai.expect;
+    var wikipedia;
+    beforeEach(function () {
+        var $injector = angular.injector(["ng", "dosenApp"]);
+        wikipedia = $injector.get("wikipedia");
+    });
+    it("should get a lot of pages", function (done) {
+        wikipedia.getTransclusions("Template:生物分類表").then(function (data) {
+            expect(Object.keys(data)).to.have.length.above(100);
+            done();
+        });
+    });
+    it("should get a title of pages", function (done) {
+        wikipedia.getTransclusions("Template:生物分類表").then(function (data) {
+            var key = Object.keys(data)[0];
+            expect(data[key]).to.have.property("title");
+            done();
+        });
+    });
+});
+/// <reference path="../test_helper.d.ts"/>
 describe("wp.Wikipedia", function () {
     var expect = chai.expect;
     var wikipedia;
@@ -977,23 +999,6 @@ describe("wp.Wikipedia", function () {
                 expect(data).to.have.length.above(300);
                 done();
             });
-        });
-    });
-    describe("#getTransclusions", function () {
-        var pages;
-        before(function (done) {
-            this.timeout(10000);
-            wikipedia.getTransclusions("Template:生物分類表").then(function (data) {
-                pages = data;
-                done();
-            });
-        });
-        it("should get a lot of pages", function () {
-            expect(Object.keys(pages)).to.have.length.above(100);
-        });
-        it("should get a title of pages", function () {
-            var key = Object.keys(pages)[0];
-            expect(pages[key]).to.have.property("title");
         });
     });
     describe("#getCategoryMembers", function () {

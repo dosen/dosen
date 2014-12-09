@@ -19,29 +19,6 @@ describe("wp.Wikipedia", function(): void {
     });
   });
 
-  describe("#getTransclusions", function(): void {
-    var pages: wp.IPages;
-
-    before(function(done: MochaDone): void {
-      this.timeout(10000);
-      wikipedia
-      .getTransclusions("Template:生物分類表")
-      .then(function(data: wp.IPages): void {
-        pages = data;
-        done();
-      });
-    });
-
-    it("should get a lot of pages", function(): void {
-      expect(Object.keys(pages)).to.have.length.above(100);
-    });
-
-    it("should get a title of pages", function(): void {
-      var key = Object.keys(pages)[0];
-      expect(pages[key]).to.have.property("title");
-    });
-  });
-
   describe("#getCategoryMembers", function(): void {
     var pages: wp.IPage[];
 
