@@ -5,11 +5,16 @@ module comp {
   export class Competitor implements ICompetitor {
     public name: string;
     public metrics: metric.IMetric[];
-    public metricitems: metric.IMetricItem[];
     public score: number;
     public finish_style: string;
     public finish_text: string;
     public image_url = "//placehold.it/300x230";
+
+    public metricitems: metric.IMetricItem[] = [
+      {name: "", text: "", value: 0, icon: ""},
+      {name: "", text: "", value: 0, icon: ""},
+      {name: "", text: "", value: 0, icon: ""}
+    ];
 
     constructor(
       private $q: ng.IQService,
@@ -17,13 +22,15 @@ module comp {
       private wikipedia: wp.Wikipedia,
       metricNames: string[]
     ) {
+      this.setMetrics(metricNames);
+    }
+
+    public setMetrics(metricNames: string[]): void {
       this.metrics = this.metric.createAll(metricNames);
 
-      this.metricitems = [
-        {name: this.metrics[0].name, text: "", value: 0, icon: ""},
-        {name: this.metrics[1].name, text: "", value: 0, icon: ""},
-        {name: this.metrics[2].name, text: "", value: 0, icon: ""}
-      ];
+      for (var i = 0; i < 3; i++) {
+        this.metricitems[i].name = this.metrics[i].name;
+      }
     }
 
     public update(): ng.IPromise<any[]> {

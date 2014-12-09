@@ -10,6 +10,7 @@ module comp {
     finish_style: string;
     finish_text: string;
 
+    setMetrics(metricNames: string[]): void;
     update(): ng.IPromise<any[]>;
   }
 }

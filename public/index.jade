@@ -23,6 +23,8 @@ html(lang="ja" ng-app="dosenApp")
           p.metric__icon(ng-class="metric.icon") &#10145;
           p.metric__name {{metric.name}}
           p.metric__text {{metric.text}}
+      .competition__shuffle
+        p(ng-click="c.shuffleMetrics()") VS
       .competitor.competition__competitor
         form(ng-submit="c.update()")
           p.competitor__input
