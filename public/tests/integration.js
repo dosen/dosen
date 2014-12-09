@@ -1,4 +1,13 @@
+/// <reference path="IRevision.ts" />
+/// <reference path="IImageInfo.ts" />
+/// <reference path="IPage.ts" />
+/// <reference path="IPages.ts" />
+/// <reference path="IBacklink.ts" />
+/// <reference path="IQuery.ts" />
 /// <reference path="../typings/angularjs/angular.d.ts" />
+/// <reference path="IResult.ts" />
+/// <reference path="../typings/angularjs/angular.d.ts" />
+/// <reference path="IPromisedResultArg.ts" />
 /* tslint:disable:no-string-literal */
 var wp;
 (function (wp) {
@@ -32,6 +41,7 @@ var wp;
     wp.GetText = GetText;
 })(wp || (wp = {}));
 /// <reference path="../typings/angularjs/angular.d.ts" />
+/// <reference path="IPromisedResultArg.ts" />
 /* tslint:disable:no-string-literal */
 var wp;
 (function (wp) {
@@ -61,6 +71,7 @@ var wp;
     wp.GetThumb = GetThumb;
 })(wp || (wp = {}));
 /// <reference path="../typings/angularjs/angular.d.ts" />
+/// <reference path="IPromisedResultArg.ts" />
 /* tslint:disable:no-string-literal */
 var wp;
 (function (wp) {
@@ -90,6 +101,8 @@ var wp;
     wp.GetBacklinks = GetBacklinks;
 })(wp || (wp = {}));
 /// <reference path="../typings/angularjs/angular.d.ts" />
+/// <reference path="IPages.ts" />
+/// <reference path="IPromisedResultArg.ts" />
 /* tslint:disable:no-string-literal */
 var wp;
 (function (wp) {
@@ -117,11 +130,11 @@ var wp;
     })();
     wp.GetTransclusions = GetTransclusions;
 })(wp || (wp = {}));
-/// <reference path="typings/angularjs/angular.d.ts" />
-/// <reference path="wp/GetText.ts" />
-/// <reference path="wp/GetThumb.ts" />
-/// <reference path="wp/GetBacklinks.ts" />
-/// <reference path="wp/GetTransclusions.ts" />
+/// <reference path="../typings/angularjs/angular.d.ts" />
+/// <reference path="GetText.ts" />
+/// <reference path="GetThumb.ts" />
+/// <reference path="GetBacklinks.ts" />
+/// <reference path="GetTransclusions.ts" />
 /* tslint:disable:no-string-literal */
 var wp;
 (function (wp) {

@@ -1,4 +1,5 @@
 /// <reference path="../typings/angularjs/angular.d.ts" />
+/// <reference path="IPromisedResultArg.ts" />
 /* tslint:disable:no-string-literal */
 module wp {
   "use strict";
