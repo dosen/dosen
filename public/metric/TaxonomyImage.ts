@@ -20,7 +20,7 @@ module metric {
       .then(function (text: string): ng.IPromise<string> {
         var m = /(?:画像)[^\[]*\[\[([^|]*)\|/.exec(text);
         if (m != null) {
-          return wikipedia.getImage(m[1]);
+          return wikipedia.getThumb(m[1]);
         } else {
           return null;
         }
