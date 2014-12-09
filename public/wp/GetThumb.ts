@@ -3,10 +3,10 @@
 module wp {
   "use strict";
 
-  export class GetText {
+  export class GetThumb {
     public endpoint = "//ja.wikipedia.org/w/api.php";
-    public query = "?format=json&callback=JSON_CALLBACK"
-    + "&action=query&prop=revisions&rvprop=content&redirects";
+    public query = "?format=json&callback=JSON_CALLBACK&continue="
+    + "&action=query&prop=imageinfo&iiprop=url&iiurlheight=320";
 
     private cache: { [n: string]: ng.IPromise<string> } = {};
 
@@ -18,18 +18,15 @@ module wp {
         return this.cache[title];
       }
 
-      console.debug("getting from Wikipadia the text of " + title);
+      console.debug("getting from Wikipadia the thumbnail of " + title);
       var promise = this.$http
       .jsonp(this.endpoint + this.query, { params: { titles: title } })
       .then(function(arg: IPromisedResultArg): string {
-        var pages = arg.data["query"]["pages"];
-        for (var k in pages) {
-          if (pages.hasOwnProperty(k)) {
-            console.debug("retrieved the text of " + title);
-            return pages[k]["revisions"][0]["*"];
-          }
-        }
+        var imageinfo = arg.data["query"]["pages"]["-1"]["imageinfo"];
+        console.debug("retrieved the thumbnail of " + title);
+        return imageinfo[0]["thumburl"];
       });
+
       this.cache[title] = promise;
       return promise;
     }

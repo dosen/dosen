@@ -1,5 +1,7 @@
 /// <reference path="typings/angularjs/angular.d.ts" />
 /// <reference path="wp/GetText.ts" />
+/// <reference path="wp/GetThumb.ts" />
+/// <reference path="wp/GetBacklinks.ts" />
 /* tslint:disable:no-string-literal */
 module wp {
   "use strict";
@@ -7,28 +9,19 @@ module wp {
   export class Wikipedia {
     public endpoint = "//ja.wikipedia.org/w/api.php";
 
+    private _getText = new GetText(this.$http);
+    private _getThumb = new GetThumb(this.$http);
+    private _getBacklinks = new GetBacklinks(this.$http);
+
     constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
     }
 
     public getText(title: string): ng.IPromise<string> {
-      return (new GetText(this.$http)).get(title);
+      return this._getText.get(title);
     }
 
     public getBacklinks(title: string): ng.IPromise<IBacklink[]> {
-      var $q = this.$q;
-      var url = this.endpoint + "?format=json&callback=JSON_CALLBACK"
-        + "&action=query&list=backlinks&bllimit=500";
-
-      console.debug("getting from Wikipadia the backlinks of " + title);
-      return this.$http
-        .jsonp(url, { params: { bltitle: title } })
-        .then(function(arg: IPromisedResultArg): ng.IPromise<IBacklink[]> {
-          var backlinks = arg.data["query"]["backlinks"];
-          console.debug("retrieved the backlinks of " + title);
-          var deferred = $q.defer();
-          deferred.resolve(backlinks);
-          return deferred.promise;
-        });
+      return this._getBacklinks.get(title);
     }
 
     public getTransclusions(title: string): ng.IPromise<IPages> {
@@ -80,6 +73,7 @@ module wp {
     }
 
     public getThumb(title: string): ng.IPromise<string> {
+      return this._getThumb.get(title);
       var url = this.endpoint + "?format=json&callback=JSON_CALLBACK&continue="
       + "&action=query&prop=imageinfo&iiprop=url&iiurlheight=320";
 
