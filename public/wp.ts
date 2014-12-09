@@ -2,6 +2,7 @@
 /// <reference path="wp/GetText.ts" />
 /// <reference path="wp/GetThumb.ts" />
 /// <reference path="wp/GetBacklinks.ts" />
+/// <reference path="wp/GetTransclusions.ts" />
 /* tslint:disable:no-string-literal */
 module wp {
   "use strict";
@@ -12,6 +13,7 @@ module wp {
     private _getText = new GetText(this.$http);
     private _getThumb = new GetThumb(this.$http);
     private _getBacklinks = new GetBacklinks(this.$http);
+    private _getTransclusions = new GetTransclusions(this.$http);
 
     constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
     }
@@ -25,20 +27,7 @@ module wp {
     }
 
     public getTransclusions(title: string): ng.IPromise<IPages> {
-      var $q = this.$q;
-      var url = this.endpoint + "?format=json&callback=JSON_CALLBACK&continue="
-        + "&action=query&generator=transcludedin&prop=info&gtilimit=500";
-
-      console.debug("getting from Wikipadia the transclusions of " + title);
-      return this.$http
-        .jsonp(url, { params: { titles: title } })
-        .then(function(arg: IPromisedResultArg): ng.IPromise<IPages> {
-          var pages = arg.data["query"]["pages"];
-          console.debug("retrieved the transclusions of " + title);
-          var deferred = $q.defer();
-          deferred.resolve(pages);
-          return deferred.promise;
-        });
+      return this._getTransclusions.get(title);
     }
 
     public getImage(title: string): ng.IPromise<string> {

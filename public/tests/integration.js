@@ -89,10 +89,39 @@ var wp;
     })();
     wp.GetBacklinks = GetBacklinks;
 })(wp || (wp = {}));
+/// <reference path="../typings/angularjs/angular.d.ts" />
+/* tslint:disable:no-string-literal */
+var wp;
+(function (wp) {
+    "use strict";
+    var GetTransclusions = (function () {
+        function GetTransclusions($http) {
+            this.$http = $http;
+            this.endpoint = "//ja.wikipedia.org/w/api.php";
+            this.query = "?format=json&callback=JSON_CALLBACK&continue=" + "&action=query&generator=transcludedin&prop=info&gtilimit=500";
+            this.cache = {};
+        }
+        GetTransclusions.prototype.get = function (title) {
+            if (this.cache[title]) {
+                return this.cache[title];
+            }
+            console.debug("getting from Wikipadia the transclusions of " + title);
+            var promise = this.$http.jsonp(this.endpoint + this.query, { params: { titles: title } }).then(function (arg) {
+                console.debug("retrieved the transclusions of " + title);
+                return arg.data["query"]["pages"];
+            });
+            this.cache[title] = promise;
+            return promise;
+        };
+        return GetTransclusions;
+    })();
+    wp.GetTransclusions = GetTransclusions;
+})(wp || (wp = {}));
 /// <reference path="typings/angularjs/angular.d.ts" />
 /// <reference path="wp/GetText.ts" />
 /// <reference path="wp/GetThumb.ts" />
 /// <reference path="wp/GetBacklinks.ts" />
+/// <reference path="wp/GetTransclusions.ts" />
 /* tslint:disable:no-string-literal */
 var wp;
 (function (wp) {
@@ -105,6 +134,7 @@ var wp;
             this._getText = new wp.GetText(this.$http);
             this._getThumb = new wp.GetThumb(this.$http);
             this._getBacklinks = new wp.GetBacklinks(this.$http);
+            this._getTransclusions = new wp.GetTransclusions(this.$http);
         }
         Wikipedia.prototype.getText = function (title) {
             return this._getText.get(title);
@@ -113,28 +143,7 @@ var wp;
             return this._getBacklinks.get(title);
         };
         Wikipedia.prototype.getTransclusions = function (title) {
-            var $q = this.$q;
-            var url = this.endpoint + "?format=json&callback=JSON_CALLBACK&continue=" + "&action=query&generator=transcludedin&prop=info&gtilimit=500";
-            console.debug("getting from Wikipadia the transclusions of " + title);
-            return this.$http.jsonp(url, { params: { titles: title } }).then(function (arg) {
-                var pages = arg.data["query"]["pages"];
-                console.debug("retrieved the transclusions of " + title);
-                var deferred = $q.defer();
-                deferred.resolve(pages);
-                return deferred.promise;
-            });
-        };
-        Wikipedia.prototype.getCategoryMembers = function (cmtitle) {
-            var $q = this.$q;
-            var url = this.endpoint + "?format=json&callback=JSON_CALLBACK&continue=" + "&action=query&list=categorymembers&cmlimit=500";
-            console.debug("getting from Wikipadia the category members of " + cmtitle);
-            return this.$http.jsonp(url, { params: { cmtitle: cmtitle } }).then(function (arg) {
-                var pages = arg.data["query"]["categorymembers"];
-                console.debug("retrieved the category members of " + cmtitle);
-                var deferred = $q.defer();
-                deferred.resolve(pages);
-                return deferred.promise;
-            });
+            return this._getTransclusions.get(title);
         };
         Wikipedia.prototype.getImage = function (title) {
             var url = this.endpoint + "?format=json&callback=JSON_CALLBACK&continue=" + "&action=query&prop=imageinfo&iiprop=url";
@@ -147,13 +156,6 @@ var wp;
         };
         Wikipedia.prototype.getThumb = function (title) {
             return this._getThumb.get(title);
-            var url = this.endpoint + "?format=json&callback=JSON_CALLBACK&continue=" + "&action=query&prop=imageinfo&iiprop=url&iiurlheight=320";
-            console.debug("getting from Wikipadia the image of " + title);
-            return this.$http.jsonp(url, { params: { titles: title } }).then(function (arg) {
-                var imageinfo = arg.data["query"]["pages"]["-1"]["imageinfo"];
-                console.debug("retrieved the image of " + title);
-                return imageinfo[0]["thumburl"];
-            });
         };
         return Wikipedia;
     })();
@@ -982,39 +984,6 @@ describe("wp.Wikipedia#getTransclusions", function () {
             var key = Object.keys(data)[0];
             expect(data[key]).to.have.property("title");
             done();
-        });
-    });
-});
-/// <reference path="../test_helper.d.ts"/>
-describe("wp.Wikipedia", function () {
-    var expect = chai.expect;
-    var wikipedia;
-    beforeEach(function () {
-        var $injector = angular.injector(["ng", "dosenApp"]);
-        wikipedia = $injector.get("wikipedia");
-    });
-    describe("#getText", function () {
-        it("should get a long text", function (done) {
-            wikipedia.getText("サイ").then(function (data) {
-                expect(data).to.have.length.above(300);
-                done();
-            });
-        });
-    });
-    describe("#getCategoryMembers", function () {
-        var pages;
-        before(function (done) {
-            this.timeout(10000);
-            wikipedia.getCategoryMembers("Category:動物").then(function (data) {
-                pages = data;
-                done();
-            });
-        });
-        it("should get a lot of pages", function () {
-            expect(pages).to.have.length.above(50);
-        });
-        it("should get a title of pages", function () {
-            expect(pages[0]).to.have.property("title");
         });
     });
 });
