@@ -21,6 +21,8 @@ module metric {
       };
       return this.wikipedia.getBacklinks(name)
       .then(function (backlinks: wp.IBacklink[]): IMetricItem {
+        console.log(backlinks);
+        metric.text = backlinks.length.toString();
         metric.value = backlinks.length;
         return metric;
       });
