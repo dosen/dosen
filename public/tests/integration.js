@@ -50,7 +50,7 @@ var wp;
         function GetThumb($http) {
             this.$http = $http;
             this.endpoint = "//ja.wikipedia.org/w/api.php";
-            this.query = "?format=json&callback=JSON_CALLBACK&continue=" + "&action=query&prop=imageinfo&iiprop=url&iiurlheight=320";
+            this.query = "?format=json&callback=JSON_CALLBACK&continue=" + "&action=query&prop=imageinfo&iiprop=url&iiurlwidth=320";
             this.cache = {};
         }
         GetThumb.prototype.get = function (title) {
