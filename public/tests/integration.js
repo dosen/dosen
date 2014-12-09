@@ -71,6 +71,15 @@ var wp;
                 return imageinfo[0]["url"];
             });
         };
+        Wikipedia.prototype.getThumb = function (title) {
+            var url = this.endpoint + "?format=json&callback=JSON_CALLBACK&continue=" + "&action=query&prop=imageinfo&iiprop=url&iiurlheight=320";
+            console.debug("getting from Wikipadia the image of " + title);
+            return this.$http.jsonp(url, { params: { titles: title } }).then(function (arg) {
+                var imageinfo = arg.data["query"]["pages"]["-1"]["imageinfo"];
+                console.debug("retrieved the image of " + title);
+                return imageinfo[0]["thumburl"];
+            });
+        };
         return Wikipedia;
     })();
     wp.Wikipedia = Wikipedia;
@@ -819,6 +828,21 @@ describe("metric", function () {
                     done(e);
                 }
             });
+        });
+    });
+});
+/// <reference path="../test_helper.d.ts"/>
+describe("wp.Wikipedia#getThumb", function () {
+    var expect = chai.expect;
+    var wikipedia;
+    beforeEach(function () {
+        var $injector = angular.injector(["ng", "dosenApp"]);
+        wikipedia = $injector.get("wikipedia");
+    });
+    it("should get an url", function (done) {
+        wikipedia.getThumb("File:White_rhinos.jpg").then(function (url) {
+            expect(url).to.match(/^http/);
+            done();
         });
     });
 });
