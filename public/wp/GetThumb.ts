@@ -7,7 +7,7 @@ module wp {
   export class GetThumb {
     public endpoint = "//ja.wikipedia.org/w/api.php";
     public query = "?format=json&callback=JSON_CALLBACK&continue="
-    + "&action=query&prop=imageinfo&iiprop=url&iiurlheight=320";
+    + "&action=query&prop=imageinfo&iiprop=url&iiurlwidth=320";
 
     private cache: { [n: string]: ng.IPromise<string> } = {};
 

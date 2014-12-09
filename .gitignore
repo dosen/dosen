@@ -2,6 +2,6 @@
 /public/bower_components/
 *.map
 /public/*.js
-/public/tests/integration/*.js
+/public/tests/*.js
 /www/
 /.wercker
