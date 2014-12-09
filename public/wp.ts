@@ -41,23 +41,6 @@ module wp {
         });
     }
 
-    public getCategoryMembers(cmtitle: string): ng.IPromise<IPage[]> {
-      var $q = this.$q;
-      var url = this.endpoint + "?format=json&callback=JSON_CALLBACK&continue="
-        + "&action=query&list=categorymembers&cmlimit=500";
-
-      console.debug("getting from Wikipadia the category members of " + cmtitle);
-      return this.$http
-        .jsonp(url, { params: { cmtitle: cmtitle } })
-        .then(function(arg: IPromisedResultArg): ng.IPromise<IPage[]> {
-          var pages = arg.data["query"]["categorymembers"];
-          console.debug("retrieved the category members of " + cmtitle);
-          var deferred = $q.defer();
-          deferred.resolve(pages);
-          return deferred.promise;
-        });
-    }
-
     public getImage(title: string): ng.IPromise<string> {
       var url = this.endpoint + "?format=json&callback=JSON_CALLBACK&continue="
       + "&action=query&prop=imageinfo&iiprop=url";
