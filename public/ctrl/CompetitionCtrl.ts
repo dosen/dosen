@@ -27,6 +27,13 @@ module ctrl {
       });
     }
 
+    public shuffleMetrics(): void {
+      var rm = new RandomMetrics();
+      var metricNames = rm.selectAll();
+      this.companion.setMetrics(metricNames);
+      this.opponent.setMetrics(metricNames);
+    }
+
     public update(): void {
       var cpn = this.companion;
       var opp = this.opponent;
