@@ -15,7 +15,7 @@ module metric {
         value: this.defaultValue
       };
 
-      var m = /(?:名称\s*=\s*)([ァ-ン]+)/.exec(text);
+      var m = /(?:名称\s*=\s*)([ァ-ンー]+)/.exec(text);
       if (m != null) {
         metric.text = m[1];
         metric.value = m[1].length;
