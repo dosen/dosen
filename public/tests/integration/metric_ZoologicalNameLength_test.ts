@@ -51,6 +51,20 @@ describe("metric.ZoologicalNameLength", function(): void {
     });
   });
 
+  it("should get 'Taxo' name with decoration", function(done: MochaDone): void {
+    this.timeout(5000);
+    m.getMetric("カササギ").then(function(mi: metric.IMetricItem): void {
+    	try {
+        expect(mi).to.have.property("name").and.equal("学名");
+        expect(mi).to.have.property("text").and.equal("Pica pica");
+        expect(mi).to.have.property("value").and.equal(9);
+        done();
+      } catch (e) {
+        done(e);
+      }
+    });
+  });
+
   it("should get some value for invalid text", function(done: MochaDone): void {
     this.timeout(5000);
     m.getMetric("ストリング").then(function(mi: metric.IMetricItem): void {
