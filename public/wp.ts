@@ -74,17 +74,6 @@ module wp {
 
     public getThumb(title: string): ng.IPromise<string> {
       return this._getThumb.get(title);
-      var url = this.endpoint + "?format=json&callback=JSON_CALLBACK&continue="
-      + "&action=query&prop=imageinfo&iiprop=url&iiurlheight=320";
-
-      console.debug("getting from Wikipadia the image of " + title);
-      return this.$http
-      .jsonp(url, { params: { titles: title } })
-      .then(function(arg: IPromisedResultArg): string {
-        var imageinfo = arg.data["query"]["pages"]["-1"]["imageinfo"];
-        console.debug("retrieved the image of " + title);
-        return imageinfo[0]["thumburl"];
-      });
     }
   }
 
