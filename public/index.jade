@@ -7,33 +7,8 @@ html(lang="ja" ng-app="dosenApp")
     script(src="dosenApp.js")
     link(rel="stylesheet",href="index.css")
     link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Press+Start+2P")
-    body(ng-style="{'background-color': bgcolor}")
+  body(ng-style="{'background-color': bgcolor}")
     h1 dosen
     input(type="color" ng-model="bgcolor" ng-init="bgcolor='#226100'")
-    .competition(ng-controller="CompetitionCtrl as c")
-      .competitor.competition__competitor
-        form(ng-submit="c.update()")
-          p.competitor__input
-            input(type="text" ng-model="c.companion.name")
-            input(type="submit")
-        .competitor__image
-          img(ng-src="{{c.companion.image_url}}")
-          p(ng-class="c.companion.finish_style") {{c.companion.finish_text}}
-        .metric.competitor__metric(ng-repeat="metric in c.companion.metricitems")
-          p.metric__icon(ng-class="metric.icon") &#10145;
-          p.metric__name {{metric.name}}
-          p.metric__text {{metric.text}}
-      .competition__shuffle
-        p(ng-click="c.shuffleMetrics()") VS
-      .competitor.competition__competitor
-        form(ng-submit="c.update()")
-          p.competitor__input
-            input(type="text" ng-model="c.opponent.name")
-            input(type="submit")
-        .competitor__image
-          img(ng-src="{{c.opponent.image_url}}")
-          p(ng-class="c.opponent.finish_style") {{c.opponent.finish_text}}
-        .metric.competitor__metric(ng-repeat="metric in c.opponent.metricitems")
-          p.metric__icon(ng-class="metric.icon") &#10145;
-          p.metric__name {{metric.name}}
-          p.metric__text {{metric.text}}
+    include competition.jade
+    include forkmeongithub.jade
