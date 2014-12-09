@@ -18,7 +18,13 @@ module metric {
       var m = /\{\{(?:Wikis|S)pecies\|([^}]*)\}\}/.exec(text);
       if (m != null) {
         metric.text = m[1];
-        metric.value = m[1].replace(/¥s/g, "").length;
+        metric.value = m[1].length;
+      } else {
+        m = /学名\s*=\s*([a-zA-Z0-9][a-zA-Z0-9 ]*[a-zA-Z0-9])/.exec(text);
+        if (m != null) {
+          metric.text = m[1];
+          metric.value = m[1].length;
+        }
       }
 
       return metric;
