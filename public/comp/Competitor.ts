@@ -44,6 +44,7 @@ module comp {
           metricitem.value = m.value;
         });
       });
+      this.image_url = "http://img02.ti-da.net/usr/tenpoundstaff/loading.gif";
       this.metric.create("TaxonomyImage")
       .getMetric(this.name)
       .then((m: metric.IMetricItem): void => {
