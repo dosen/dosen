@@ -7,6 +7,11 @@ html(lang="ja" ng-app="dosenApp")
     script(src="dosenApp.js")
     link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Press+Start+2P")
     link(rel="stylesheet" href="index.css")
+    link(rel="stylesheet" href="spinner.css")
+    script.
+      if (!console.debug) {
+        console.debug = console.log;
+      }
   body(ng-style="{'background-color': bgcolor}")
     h1 dosen
     input(type="color" ng-model="bgcolor" ng-init="bgcolor='#226100'")
