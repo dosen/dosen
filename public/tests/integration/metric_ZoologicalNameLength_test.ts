@@ -23,6 +23,20 @@ describe("metric.ZoologicalNameLength", function(): void {
     });
   });
 
+  it("should get 'Wikispecies' name with alias", function(done: MochaDone): void {
+    this.timeout(5000);
+    m.getMetric("ウサギ").then(function(mi: metric.IMetricItem): void {
+    	try {
+        expect(mi).to.have.property("name").and.equal("学名");
+        expect(mi).to.have.property("text").and.equal("Leporidae");
+        expect(mi).to.have.property("value").and.equal(9);
+        done();
+      } catch (e) {
+        done(e);
+      }
+    });
+  });
+
   it("should get 'Species' name", function(done: MochaDone): void {
     this.timeout(5000);
     m.getMetric("ヒツジ").then(function(mi: metric.IMetricItem): void {
