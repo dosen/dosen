@@ -1,21 +1,37 @@
+var del = require('del');
 var foreach = require("gulp-foreach");
 var gulp = require("gulp");
+var karma = require('karma').server;
 var spawn = require("child_process").spawn;
 var tslint = require("gulp-tslint");
 var typescript = require("gulp-tsc");
 
 var paths = {
   ts: "public/*.ts",
-  tsTests: "public/tests/**/*.ts"
+  tsTests: "public/tests/integration/*.ts"
 }
 
 gulp.task("default", ["typescript"]);
 
-gulp.task("test", ["checkDependencies", "tslint"]);
+gulp.task("clean", function(done) {
+  del([
+    "public/*.js",
+    "public/*.js.map",
+    "public/tests/*.js",
+    "public/tests/*.js.map"
+  ], done);
+});
+gulp.task("test", ["checkDependencies", "tslint", "karma"]);
 gulp.task("watch", function() {
   gulp.watch(paths.ts, ["typescript"]);
   gulp.watch(paths.tsTests, ["ts-tests"]);
   spawn("npm", ["start"]);
+});
+
+gulp.task("karma", ["ts-tests"], function (done) {
+  karma.start({
+    configFile: __dirname + "/karma-ci.conf.js"
+  }, done);
 });
 
 gulp.task("tslint", function() {
@@ -54,6 +70,7 @@ gulp.task("ts-tests", function() {
       noImplicitAny: true,
       safe: true,
       outDir: "public/",
+      out: "tests/integration.js",
       sourcemap: true
     }))
     .pipe(gulp.dest("public/"));

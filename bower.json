@@ -1,7 +1,7 @@
 {
   "name": "dosen",
   "main": "index.js",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "homepage": "https://github.com/dosen/dosen",
   "authors": [
     "Kaito Udagawa <umireon@gmail.com>"
@@ -9,6 +9,8 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "angular": "~1.3.3"
+    "angular": "~1.3.3",
+    "mocha": "~2.0.1",
+    "chai": "~1.10.0"
   }
 }
