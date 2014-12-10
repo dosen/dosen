@@ -4,9 +4,12 @@
       p.competitor__input
         input(type="text" ng-model="c.companion.name")
         input(type="submit")
-    .competitor__image
-      img(ng-src="{{c.companion.image_url}}")
-      p(ng-class="c.companion.finish_style") {{c.companion.finish_text}}
+    .image.competitor__image
+      a(href="http://ja.wikipedia.org/wiki/{{c.companion.name}}")
+        img(ng-src="{{c.companion.image_url}}")
+        p(ng-class="c.companion.finish_style") {{c.companion.finish_text}}
+        .image__spinner(ng-show="c.companion.image_loading")
+          include spinner.jade
     .metric.competitor__metric(ng-repeat="metric in c.companion.metricitems")
       p.metric__icon(ng-class="metric.icon") &#10145;
       p.metric__name {{metric.name}}
@@ -18,9 +21,12 @@
       p.competitor__input
         input(type="text" ng-model="c.opponent.name")
         input(type="submit")
-    .competitor__image
-      img(ng-src="{{c.opponent.image_url}}")
-      p(ng-class="c.opponent.finish_style") {{c.opponent.finish_text}}
+    .image.competitor__image
+      a(href="http://ja.wikipedia.org/wiki/{{c.opponent.name}}")
+        img(ng-src="{{c.opponent.image_url}}")
+        p(ng-class="c.opponent.finish_style") {{c.opponent.finish_text}}
+        .image__spinner(ng-show="c.opponent.image_loading")
+          include spinner.jade
     .metric.competitor__metric(ng-repeat="metric in c.opponent.metricitems")
       p.metric__icon(ng-class="metric.icon") &#10145;
       p.metric__name {{metric.name}}

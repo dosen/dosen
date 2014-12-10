@@ -15,7 +15,7 @@ module metric {
         value: this.defaultValue
       };
 
-      var m = /\{\{(?:Wikis|S)pecies\|([^}]*)\}\}/.exec(text);
+      var m = /\{\{(?:Wikis|S)pecies\|([^}|]*)/.exec(text);
       if (m != null) {
         metric.text = m[1];
         metric.value = m[1].length;

@@ -9,6 +9,8 @@ module comp {
     public finish_style: string;
     public finish_text: string;
     public image_url = "//placehold.it/300x230";
+    public image_notfound = "//placehold.it/300x230/226100/ffffff&text=NOT%20FOUND"
+    public image_loading = false;
 
     public metricitems: metric.IMetricItem[] = [
       {name: "", text: "", value: 0, icon: ""},
@@ -44,10 +46,16 @@ module comp {
           metricitem.value = m.value;
         });
       });
+      this.image_loading = true;
       this.metric.create("TaxonomyImage")
       .getMetric(this.name)
       .then((m: metric.IMetricItem): void => {
         this.image_url = m.text;
+      }, (): void => {
+        this.image_url = this.image_notfound;
+      })
+      .finally((): void => {
+        this.image_loading = false;
       });
       return this.$q.all(promises);
     }

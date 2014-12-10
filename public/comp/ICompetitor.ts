@@ -9,6 +9,8 @@ module comp {
     score: number;
     finish_style: string;
     finish_text: string;
+    image_url: string;
+    image_loading: boolean;
 
     setMetrics(metricNames: string[]): void;
     update(): ng.IPromise<any[]>;
