@@ -8,14 +8,11 @@ module ctrl {
         { name: "BodyWeight", weight: 1 },
       ],
       [
-        { name: "BodyLength", weight: 1 },
-        { name: "NameLength", weight: 1 }
+        { name: "ZoologicalNameLength", weight: 1 },
+        { name: "FamilyNameLength", weight: 1 },
       ],
       [
         { name: "Backlinks", weight: 1 },
-        { name: "BodyWeight", weight: 1 },
-        { name: "ZoologicalNameLength", weight: 1 },
-        { name: "FamilyNameLength", weight: 1 },
       ]
     ];
 
