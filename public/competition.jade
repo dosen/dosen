@@ -5,7 +5,8 @@
         input(type="text" ng-model="c.companion.name")
         input(type="submit")
     .competitor__image
-      img(ng-src="{{c.companion.image_url}}")
+      a(href="http://ja.wikipedia.org/wiki/{{c.companion.name}}")
+        img(ng-src="{{c.companion.image_url}}")
       p(ng-class="c.companion.finish_style") {{c.companion.finish_text}}
     .metric.competitor__metric(ng-repeat="metric in c.companion.metricitems")
       p.metric__icon(ng-class="metric.icon") &#10145;
