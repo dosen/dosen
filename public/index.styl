@@ -22,11 +22,15 @@ h1
   .competition__competitor
     margin 0 1%
     flex 1
-    width competitor-width
+    max-width competitor-width
 
   .competition__shuffle
     color white
     font-family 'Press Start 2P', cursive
+
+@media all and (-ms-high-contrast:none)
+  *::-ms-backdrop, .competition .competition__competitor
+    max-width none
 
 .competitor
   .competitor__input
