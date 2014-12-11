@@ -8,6 +8,7 @@
 /// <reference path="ZoologicalNameLength.ts"/>
 /// <reference path="FamilyNameLength.ts"/>
 /// <reference path="Punctuations.ts"/>
+/// <reference path="BitCount.ts"/>
 module metric {
   "use strict";
 
