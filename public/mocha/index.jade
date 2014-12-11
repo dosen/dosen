@@ -1,15 +1,17 @@
 doctype html
 html
   head
-    title Mocha
+    title Mocha on dosen
     meta(http-equiv="Content-Type" content="text/html; charset=UTF-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     link(rel="stylesheet" href="../bower_components/mocha/mocha.css")
     link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Press+Start+2P")
     link(rel="stylesheet" href="index.css")
   body(style="background-color: #226100")
-    h1.name dosen
-    p the DObutsu SENto program
+    a(href="../").name
+      h1 dosen
+      p the DObutsu SENto program
+      p#ready READY TO LAUNCH
     #mocha
     script(src="../bower_components/mocha/mocha.js")
     script(src="../bower_components/chai/chai.js")
@@ -19,11 +21,13 @@ html
     script(src="../tests/integration.js")
     script.
       setTimeout(function(){
-      var runner = mocha.run();
-      runner.on("test end", function(test) {
-       console.log(this.stats.passes, this.total);
-      });
-      runner.on("end", function(test) {
-        document.getElementById("#mocha").innerHTML = 'Ready to Launch';
-      });
+        var runner = mocha.run();
+        runner.on("test end", function(test) {
+         console.log(this.stats.passes, this.total);
+        });
+        runner.on("end", function(test) {
+          var ready = document.getElementById("ready");
+          ready.style.display = "block";
+          ready.style.opacity = 1;
+        });
       }, 1000);
