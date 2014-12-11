@@ -14,7 +14,8 @@ module ctrl {
       [
         { name: "Backlinks", weight: 1 },
         { name: "Punctuations", weight: 1 },
-        { name: "BitCount", weight: 1 }
+        { name: "BitCount", weight: 1 },
+        { name: "ByteCount", weight: 1 }
       ]
     ];
 
