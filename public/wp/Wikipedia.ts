@@ -4,6 +4,7 @@
 /// <reference path="GetBacklinks.ts" />
 /// <reference path="GetTransclusions.ts" />
 /// <reference path="GetContributors.ts" />
+/// <reference path="GetLanglinks.ts" />
 /* tslint:disable:no-string-literal */
 module wp {
   "use strict";
@@ -16,6 +17,7 @@ module wp {
     private _getBacklinks = new GetBacklinks(this.$http);
     private _getTransclusions = new GetTransclusions(this.$http);
     private _getContributors = new GetContributors(this.$http);
+    private _getLanglinks = new GetLanglinks(this.$http);
 
     constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
     }
@@ -38,6 +40,10 @@ module wp {
 
     public getContributors(title: string): ng.IPromise<IUser[]> {
       return this._getContributors.get(title);
+    }
+
+    public getLanglinks(title: string): ng.IPromise<ILanglink[]> {
+      return this._getLanglinks.get(title);
     }
   }
 }

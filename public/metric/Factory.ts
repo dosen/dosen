@@ -10,6 +10,7 @@
 /// <reference path="Punctuations.ts"/>
 /// <reference path="BitCardinarity.ts"/>
 /// <reference path="ByteCount.ts"/>
+/// <reference path="Contributors.ts"/>
 module metric {
   "use strict";
 
@@ -39,6 +40,8 @@ module metric {
           return new BitCardinarity(this.wikipedia);
         case "ByteCount":
           return new ByteCount(this.wikipedia);
+        case "Contributors":
+          return new Contributors(this.wikipedia);
       }
     }
 
