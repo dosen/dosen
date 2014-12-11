@@ -9,6 +9,7 @@
 /// <reference path="FamilyNameLength.ts"/>
 /// <reference path="Punctuations.ts"/>
 /// <reference path="BitCount.ts"/>
+/// <reference path="ByteCount.ts"/>
 module metric {
   "use strict";
 
@@ -34,6 +35,10 @@ module metric {
           return new FamilyNameLength(this.wikipedia);
         case "Punctuations":
           return new Punctuations(this.wikipedia);
+        case "BitCount":
+          return new BitCount(this.wikipedia);
+        case "ByteCount":
+          return new ByteCount(this.wikipedia);
       }
     }
 
