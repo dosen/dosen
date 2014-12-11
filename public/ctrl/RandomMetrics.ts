@@ -13,6 +13,7 @@ module ctrl {
       ],
       [
         { name: "Backlinks", weight: 1 },
+        { name: "Punctuations", weight: 1 },
       ]
     ];
 
