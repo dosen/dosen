@@ -5,14 +5,19 @@ module ctrl {
     private table = [
       [
         { name: "BodyLength", weight: 1 },
-        { name: "BodyWeight", weight: 1 },
-      ],
-      [
-        { name: "ZoologicalNameLength", weight: 1 },
-        { name: "FamilyNameLength", weight: 1 },
+        { name: "Punctuations", weight: 1 },
+        { name: "BitCardinarity", weight: 1 },
       ],
       [
         { name: "Backlinks", weight: 1 },
+        { name: "BodyWeight", weight: 1 },
+        { name: "ZoologicalNameLength", weight: 1 },
+      ],
+      [
+        { name: "FamilyNameLength", weight: 1 },
+        { name: "ByteCount", weight: 1 },
+        { name: "Contributors", weight: 1 },
+        { name: "Langlinks", weight: 1 },
       ]
     ];
 

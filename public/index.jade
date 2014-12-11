@@ -13,7 +13,9 @@ html(lang="ja" ng-app="dosenApp")
         console.debug = console.log;
       }
   body(ng-style="{'background-color': bgcolor}")
-    h1 dosen
+    .name
+      h1 dosen
+      p the DObutsu SENto program
     input(type="color" ng-model="bgcolor" ng-init="bgcolor='#226100'")
     include competition.jade
     include forkmeongithub.jade

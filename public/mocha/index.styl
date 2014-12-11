@@ -1,9 +1,29 @@
 html, body
   height 100%
 
-.name, p
+a.name
+  color white
+  text-decoration none
   text-align center
   font-family 'Press Start 2P', cursive
+  p
+    margin 0
+
+#ready
+  box-shadow 10px 10px
+  line-height 50px
+  width 300px
+  background-color white
+  margin 15px auto
+  color black
+  opacity 0
+  transition opacity 1s
+
+  &:active
+    position relative
+    top 10px
+    left 10px
+    box-shadow none
 
 #mocha
   background-color #333
@@ -11,6 +31,7 @@ html, body
   border-radius 20px
   height 80%
   overflow scroll
+  margin-top 0
 
   h1
     margin 0

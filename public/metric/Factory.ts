@@ -7,6 +7,11 @@
 /// <reference path="TaxonomyImage.ts"/>
 /// <reference path="ZoologicalNameLength.ts"/>
 /// <reference path="FamilyNameLength.ts"/>
+/// <reference path="Punctuations.ts"/>
+/// <reference path="BitCardinarity.ts"/>
+/// <reference path="ByteCount.ts"/>
+/// <reference path="Contributors.ts"/>
+/// <reference path="Langlinks.ts"/>
 module metric {
   "use strict";
 
@@ -30,6 +35,16 @@ module metric {
           return new ZoologicalNameLength(this.wikipedia);
         case "FamilyNameLength":
           return new FamilyNameLength(this.wikipedia);
+        case "Punctuations":
+          return new Punctuations(this.wikipedia);
+        case "BitCardinarity":
+          return new BitCardinarity(this.wikipedia);
+        case "ByteCount":
+          return new ByteCount(this.wikipedia);
+        case "Contributors":
+          return new Contributors(this.wikipedia);
+        case "Langlinks":
+          return new Langlinks(this.wikipedia);
       }
     }
 
