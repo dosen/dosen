@@ -17,6 +17,7 @@ module ctrl {
         { name: "BitCardinarity", weight: 1 },
         { name: "ByteCount", weight: 1 },
         { name: "Contributors", weight: 1 },
+        { name: "Langlinks", weight: 1 },
       ]
     ];
 
