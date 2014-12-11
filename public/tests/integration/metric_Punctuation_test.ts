@@ -13,7 +13,7 @@ describe("metric.Punctuations", function(): void {
     this.timeout(5000);
     m.getMetric("ペリカン").then(function(mi: metric.IMetricItem): void {
     	try {
-        expect(mi).to.have.property("value").and.equal(100);
+        expect(mi).to.have.property("value").and.above(100);
         done();
       } catch (e) {
         done(e);
