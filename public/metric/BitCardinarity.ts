@@ -3,8 +3,8 @@
 module metric {
   "use strict";
 
-  export class BitCount extends WpTextMetric {
-    public name = "テキストのビットカウント";
+  export class BitCardinarity extends WpTextMetric {
+    public name = "ビット1の出現確率";
     public defaultText = "NOT FOUND";
     public defaultValue = 0;
 
@@ -15,13 +15,17 @@ module metric {
         value: this.defaultValue
       };
 
-      var count = 0;
+      var bit1 = 0;
+      var bit10 = 0;
       for (var i = 0; i < text.length; i++) {
-        count += text.charCodeAt(i).toString(2).match(/1/g).length;
+        var binary = text.charCodeAt(i).toString(2);
+        bit10 += binary.length;
+        bit1 += binary.match(/1/g).length;
       }
+      var card = bit1 / bit10;
 
-      metric.text = count.toString();
-      metric.value = count;
+      metric.text = card.toString();
+      metric.value = card;
 
       return metric;
     }
