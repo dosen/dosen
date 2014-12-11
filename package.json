@@ -1,6 +1,6 @@
 {
   "name": "dosen",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "The game comparing metrics of a Wikipedia page, largely depending on the client side programing",
   "main": "index.js",
   "scripts": {
