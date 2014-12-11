@@ -72,9 +72,9 @@ module ctrl {
           opp.finish_style = "win";
         } else {
           cpn.finish_text = "DRAW";
-          cpn.finish_style = "";
+          cpn.finish_style = "draw";
           opp.finish_text = "DRAW";
-          opp.finish_style = "";
+          opp.finish_style = "draw";
         }
       });
     }
