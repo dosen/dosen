@@ -19,7 +19,7 @@ module metric {
         text: this.defaultText,
         value: this.defaultValue
       };
-      return this.wikipedia.getBacklinks(name)
+      return this.wikipedia.getContributors(name)
       .then(function (data: wp.IUser[]): IMetricItem {
         metric.text = data.length.toString();
         metric.value = data.length;
