@@ -8,7 +8,7 @@ module wp {
   export class GetLanglinks {
     public endpoint = "//ja.wikipedia.org/w/api.php";
     public query = "?format=json&callback=JSON_CALLBACK"
-    + "&action=query&prop=langlinks&redirects";
+    + "&action=query&prop=langlinks&lllimit=500&redirects";
 
     private cache: { [n: string]: ng.IPromise<ILanglink[]> } = {};
 

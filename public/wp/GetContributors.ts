@@ -8,7 +8,7 @@ module wp {
   export class GetContributors {
     public endpoint = "//ja.wikipedia.org/w/api.php";
     public query = "?format=json&callback=JSON_CALLBACK"
-    + "&action=query&prop=contributors&redirects";
+    + "&action=query&prop=contributors&pclimit=500&redirects";
 
     private cache: { [n: string]: ng.IPromise<IUser[]> } = {};
 
